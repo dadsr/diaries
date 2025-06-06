@@ -3,7 +3,7 @@ import {globalStyles} from "../../../styles/globalStyles";
 import {JSX} from "react";
 
 interface SaveProps {
-    onPress: () => Set<string>;
+    onPress: () => void;
 }
 export default function SaveButton({onPress}:SaveProps): JSX.Element {
 

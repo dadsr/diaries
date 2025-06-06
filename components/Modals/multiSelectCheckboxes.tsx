@@ -10,17 +10,18 @@ interface CheckboxesProps {
     headerText: string;
     onClose: () => void;
     onSave: (selected: string[]) => void;
+    selectedIds: string[];
 }
 
 export default function MultiSelectCheckboxes(props: CheckboxesProps): JSX.Element {
-    const { diary, options, onClose, onSave, headerText } = props
-    const [selected, setSelected] = useState<Set<string>>(new Set());
+    const { diary, options,  onSave, headerText } = props
+    const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set(props.selectedIds));
 
     console.log("MultiSelectCheckboxes() diary ",diary);
 
 
     const toggleSelect = (id: string) => {
-        setSelected(prev => {
+        setSelectedIds(prev => {
             const newSet = new Set(prev);
             if (newSet.has(id)) {
                 newSet.delete(id);
@@ -32,13 +33,13 @@ export default function MultiSelectCheckboxes(props: CheckboxesProps): JSX.Eleme
     };
 
     const handleSave = () => {
-        onSave(Array.from(selected));
+        onSave(Array.from(selectedIds));
     };
 
     const renderItem = ({ item }: { item: ThoughtItem }) => (
         <TouchableOpacity onPress={() => toggleSelect(item.id)} style={styles.row}>
             <Checkbox
-                value={selected.has(item.id)}
+                value={selectedIds.has(item.id)}
                 onValueChange={() => toggleSelect(item.id)}
                 style={styles.checkbox}
             />
@@ -66,7 +67,7 @@ export default function MultiSelectCheckboxes(props: CheckboxesProps): JSX.Eleme
             )}
             renderItem={renderItem}
             keyExtractor={item => item.id}
-            extraData={selected}
+            extraData={selectedIds}
         />
     );
 }
