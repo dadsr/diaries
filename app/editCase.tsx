@@ -327,7 +327,7 @@ export default function EditCase(): JSX.Element {
                                 control={control}
                                 visible={isDistorsionsModalVisible}
                                 onClose={() => setIsDistorsionsModalVisible(false)}
-                                onSave={handleConditioningSave}
+                                onSave={handleDistortionsSave}
                                 options={distortionsThoughtsArray}
                                 diary={diary}
                             />
@@ -359,7 +359,7 @@ export default function EditCase(): JSX.Element {
 
                             <ConditioningModal
                                 control={control}
-                                visible={isDistorsionsModalVisible}
+                                visible={isConditioningModalVisible}
                                 onClose={() => setIsConditioningModalVisible(false)}
                                 onSave={handleConditioningSave}
                                 options={counterConditioningThoughtsArray}

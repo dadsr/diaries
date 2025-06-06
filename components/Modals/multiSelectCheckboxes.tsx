@@ -32,7 +32,7 @@ export default function MultiSelectCheckboxes(props: CheckboxesProps): JSX.Eleme
     };
 
     const handleSave = () => {
-        onSave(Array.from(selected)); // Pass selected IDs to parent
+        onSave(Array.from(selected));
     };
 
     const renderItem = ({ item }: { item: ThoughtItem }) => (

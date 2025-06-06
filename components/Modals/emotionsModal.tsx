@@ -48,7 +48,7 @@ export default function EmotionsModal({
                     </View>
                 </ScrollView>
 
-                {/*<SaveButton onPress={onSave}/>*/}
+                <SaveButton onPress={onSave}/>
             </ImageBackground>
         </Modal>
     );
