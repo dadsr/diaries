@@ -11,7 +11,6 @@ interface EmotionsProps {
     emotions: Emotion[];
 }
 
-
 export default function EmotionCard(props: EmotionsProps) {
     console.log("EmotionCard()");
     const {diary, emotions} = props;
@@ -34,7 +33,7 @@ export default function EmotionCard(props: EmotionsProps) {
         <ImageBackground
             source={bgImg}
             style={globalStyles.background}
-            resizeMode="stretch"
+            resizeMode="cover"
         >
             <View style={globalStyles.container}>
                 {emotions.length === 0 ? (

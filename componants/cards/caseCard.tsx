@@ -4,8 +4,8 @@ import {Case} from "@/models/Case";
 import {router} from "expo-router";
 import services from "@/services/Services";
 import {globalStyles} from "@/styles/globalStyles";
-import EmotionCard from "@/components/emotionCard";
-import ThoughtsCard from "@/components/thoughtsCard";
+import EmotionCard from "@/componants/emotionCard";
+import ThoughtsCard from "@/componants/thoughtsCard";
 import {bgImg, sImg} from "@/assets";
 
 

@@ -11,12 +11,12 @@ import services from "@/services/Services";
 import {Emotion} from "@/models/Emotion";
 import {Case} from "@/models/Case";
 import {CaseFormValues, ThoughtItem} from "@/models/Types";
-import BackButton from "@/components/Modals/components/backButton";
+import BackButton from "@/componants/buttons/backButton";
 
-import EmotionsModal from "@/components/Modals/emotionsModal";
+import EmotionsModal from "@/componants/modals/emotionsModal";
 import {DistortionThought} from "@/models/DistortionThought";
-import DistortionsModal from "@/components/Modals/distortionsModal";
-import ConditioningModal from "@/components/Modals/conditioningModal";
+import DistortionsModal from "@/componants/modals/distortionsModal";
+import ConditioningModal from "@/componants/modals/conditioningModal";
 import {DistortionsThoughtKey, distortionsThoughtsArray} from "@/models/consts/DistortionsThoughtsConst";
 import {CounterConditioningThought} from "@/models/CounterConditioningThought";
 import {counterConditioningThoughtsArray, CounterThoughtKey} from "@/models/consts/CounterConditioningThoughtsConst";

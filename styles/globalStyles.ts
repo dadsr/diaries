@@ -119,6 +119,12 @@ export const globalStyles = StyleSheet.create({
         fontWeight: 'medium' as TextStyle['fontWeight'],
 
     },
+    buttonIcon: {
+        textAlign: 'right',
+        writingDirection: 'rtl',
+        color: colors.white,
+        fontWeight: 'medium' as TextStyle['fontWeight'],
+    },
 
 
     selectorContainer: {

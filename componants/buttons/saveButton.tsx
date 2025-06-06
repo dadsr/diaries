@@ -1,5 +1,5 @@
 import {Text, TouchableOpacity, View} from "react-native";
-import {globalStyles} from "../../../styles/globalStyles";
+import {globalStyles} from "../../styles/globalStyles";
 import {JSX} from "react";
 
 interface SaveProps {

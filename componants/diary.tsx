@@ -10,11 +10,11 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
-import CaseCard from "@/components/caseCard";
 import {globalStyles} from "@/styles/globalStyles";
 
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {bgImg} from "@/assets";
+import CaseCard from "@/componants/cards/caseCard";
 
 
 type DiaryProps = {

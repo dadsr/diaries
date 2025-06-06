@@ -2,7 +2,7 @@ import React, {JSX, useState} from 'react';
 import {SectionList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Checkbox from 'expo-checkbox';
 import {ThoughtItem} from "@/models/Types";
-import SaveButton from "@/components/Modals/components/saveButton";
+import SaveButton from "@/componants/buttons/saveButton";
 
 interface CheckboxesProps {
     diary: number;

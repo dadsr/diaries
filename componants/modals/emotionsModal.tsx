@@ -1,20 +1,12 @@
-import React, { JSX } from 'react';
-import {  Modal, ImageBackground, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {EmotionsSelector} from "./emotionsSelector";
+import React, {JSX} from 'react';
+import {ImageBackground, Modal, ScrollView, Text, View} from 'react-native';
 import background from '../../assets/images/bgImg.jpg';
 import {globalStyles} from '../../styles/globalStyles';
-import BackButton from "@/components/Modals/components/backButton";
-import SaveButton from "@/components/Modals/components/saveButton";
+import BackButton from "@/componants/buttons/backButton";
 import {ModalProps} from "@/models/Types";
+import {EmotionsMultiSelector} from "@/componants/selectors/emotionsMultiSelector";
 
-export default function EmotionsModal({
-                                          control,
-                                          visible,
-                                             onClose,
-                                             onSave,
-                                             options,
-                                            diary
-                                         }:ModalProps): JSX.Element  {
+export default function EmotionsModal({control, visible, onClose, onSave, options, diary  }:ModalProps): JSX.Element  {
     console.log("EmotionsModal()");
 
     return (
@@ -41,7 +33,7 @@ export default function EmotionsModal({
 
                     {/* Multi-select checklist */}
                     <View style={globalStyles.selectorContainer}>
-                        <EmotionsSelector
+                        <EmotionsMultiSelector
                             diary={diary}
                             control={control}
                             name="emotions" />

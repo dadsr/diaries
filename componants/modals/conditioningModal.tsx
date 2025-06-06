@@ -2,8 +2,8 @@ import {ModalProps} from "@/models/Types";
 import {ImageBackground, Modal, Text, View} from "react-native";
 import {bgImg} from "@/assets";
 import {globalStyles} from "@/styles/globalStyles";
-import BackButton from "@/components/Modals/components/backButton";
-import MultiSelectCheckboxes from "@/components/Modals/multiSelectCheckboxes";
+import BackButton from "@/componants/buttons/backButton";
+import MultiSelectCheckboxes from "@/comp/modals/multiSelectCheckboxes";
 import {JSX} from "react";
 
 
