@@ -1,8 +1,8 @@
 import {JSX} from "react";
-import DiaryScreen from "@/components/diary";
 import {globalStyles} from "@/styles/globalStyles";
 import {ImageBackground, View} from "react-native";
 import {bgImg} from "@/assets";
+import DiaryScreen from "@/componants/diary";
 
 
 export default function thirdDiary(): JSX.Element {

@@ -1,17 +1,22 @@
-import {ModalProps} from "@/models/Types";
-import {ImageBackground, Modal, View, Text} from "react-native";
+import {CaseFormValues, ModalProps} from "@/models/Types";
+import {ImageBackground, Modal, ScrollView, Text, View} from "react-native";
 import {bgImg} from "@/assets";
 import {globalStyles} from "@/styles/globalStyles";
 import BackButton from "@/componants/buttons/backButton";
 import SaveButton from "@/componants/buttons/saveButton";
-import MultiSelectCheckboxes from "@/comp/modals/multiSelectCheckboxes";
+
 import {JSX} from "react";
+import {distortionsThoughtsArray} from "@/models/consts/DistortionsThoughtsConst";
+import MultiChackBoxes from "@/componants/selectors/multiCheckBoxes";
 
 
+export default function DistortionsModal({ diary, control, visible, onClose, onSave  }:ModalProps): JSX.Element  {
+    console.log("DistortionsModal() diary ",diary);
 
-export default function DistortionsModal(props: ModalProps): JSX.Element  {
-    console.log("DistortionsModal()");
-    const {control, visible, onClose, onSave, options, diary } = props;
+    const clickSave = (data: CaseFormValues) => {
+        onSave(data.distortionIds);
+        onClose();
+    };
 
     return (
         <Modal
@@ -26,18 +31,29 @@ export default function DistortionsModal(props: ModalProps): JSX.Element  {
                 style={globalStyles.background}
                 resizeMode="cover"
             >
-                <BackButton onPress={onClose} />
+                <ScrollView contentContainerStyle={globalStyles.scrollView}>
 
-                {/* Heading */}
-                <Text style={[globalStyles.heading, { paddingRight:10 }]}>
-                    עיוות חשיבה
-                </Text>
+                    {/* Heading */}
+                    <Text style={[globalStyles.heading, { paddingRight:10 }]}>
+                        עיוות חשיבה
+                    </Text>
 
-                {/* Multi-select checklist */}
-                <View style={globalStyles.selectorContainer}>
-                    <MultiSelectCheckboxes  diary={diary} options={options} onClose={onClose} onSave={onSave} headerText="עיוות חשיבה" />
-                </View>
-
+                    <View style={globalStyles.selectorContainer}>
+                        <Modal visible={visible} animationType="slide">
+                            <View style={{ flex: 1 }}>
+                                <MultiChackBoxes
+                                    diary={diary}
+                                    options={distortionsThoughtsArray}
+                                    control={control}
+                                    headerText="בחר עיוותי חשיבה"
+                                    name="distortionIds"
+                                />
+                                <BackButton onPress={() => onClose} />
+                                <SaveButton onPress={()=>clickSave} />
+                            </View>
+                        </Modal>
+                    </View>
+                </ScrollView>
             </ImageBackground>
         </Modal>
     );

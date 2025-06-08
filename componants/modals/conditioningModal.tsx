@@ -1,17 +1,23 @@
-import {ModalProps} from "@/models/Types";
-import {ImageBackground, Modal, Text, View} from "react-native";
+import {CaseFormValues, ModalProps} from "@/models/Types";
+import {Button, ImageBackground, Modal, Text, View} from "react-native";
 import {bgImg} from "@/assets";
 import {globalStyles} from "@/styles/globalStyles";
 import BackButton from "@/componants/buttons/backButton";
-import MultiSelectCheckboxes from "@/comp/modals/multiSelectCheckboxes";
 import {JSX} from "react";
+import MultiChackBoxes from "@/componants/selectors/multiCheckBoxes";
+import {counterConditioningThoughtsArray} from "@/models/consts/CounterConditioningThoughtsConst";
+import SaveButton from "@/componants/buttons/saveButton";
 
 
-export default function ConditioningModal(props: ModalProps): JSX.Element  {
-    console.log("ConditioningModal()");
-    const {control, visible, onClose, onSave, options, diary } = props;
+export default function ConditioningModal({ diary, control, visible, onClose, onSave  }:ModalProps): JSX.Element  {
+    console.log("ConditioningModal() diary ",diary);
 
-        return (
+    const clickSave = (data: CaseFormValues) => {
+        onSave(data.counterThoughtIds);
+        onClose();
+    };
+
+    return (
         <Modal
             visible={visible}
             animationType="fade"
@@ -28,14 +34,23 @@ export default function ConditioningModal(props: ModalProps): JSX.Element  {
 
 
                 {/* Heading */}
-                    <Text style={[globalStyles.heading, { paddingRight:10 }]}>
-                        מחשבות חליפיות
-                    </Text>
+                <Text style={[globalStyles.heading, { paddingRight:10 }]}>
+                    מחשבות חליפיות
+                </Text>
 
-                    {/* Multi-select checklist */}
-                    <View style={globalStyles.selectorContainer}>
-                        <MultiSelectCheckboxes  diary={diary} options={options} onClose={onClose} onSave={onSave} headerText="מחשבות חליפיות" />
-                    </View>
+                {/* Multi-select checklist */}
+                <View style={globalStyles.selectorContainer}>
+
+                    <MultiChackBoxes
+                        diary={diary}
+                        options={counterConditioningThoughtsArray}
+                        control={control}
+                        headerText="בחר מחשבות מאזנות"
+                        name="counterThoughtIds"
+                    />
+                    <BackButton onPress={() => onClose} />
+                    <SaveButton onPress={()=>clickSave} />
+                </View>
             </ImageBackground>
         </Modal>
     );

@@ -5,6 +5,7 @@ import {globalStyles} from '../../styles/globalStyles';
 import BackButton from "@/componants/buttons/backButton";
 import {ModalProps} from "@/models/Types";
 import {EmotionsMultiSelector} from "@/componants/selectors/emotionsMultiSelector";
+import {bgImg} from "@/assets";
 
 export default function EmotionsModal({control, visible, onClose, onSave, options, diary  }:ModalProps): JSX.Element  {
     console.log("EmotionsModal()");
@@ -18,7 +19,7 @@ export default function EmotionsModal({control, visible, onClose, onSave, option
             transparent={false}
         >
             <ImageBackground
-                source={background}
+                source={bgImg}
                 style={globalStyles.background}
                 resizeMode="cover"
             >
@@ -31,7 +32,6 @@ export default function EmotionsModal({control, visible, onClose, onSave, option
                         רגשות
                     </Text>
 
-                    {/* Multi-select checklist */}
                     <View style={globalStyles.selectorContainer}>
                         <EmotionsMultiSelector
                             diary={diary}

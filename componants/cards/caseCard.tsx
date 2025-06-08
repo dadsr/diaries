@@ -4,9 +4,10 @@ import {Case} from "@/models/Case";
 import {router} from "expo-router";
 import services from "@/services/Services";
 import {globalStyles} from "@/styles/globalStyles";
-import EmotionCard from "@/componants/emotionCard";
-import ThoughtsCard from "@/componants/thoughtsCard";
+
 import {bgImg, sImg} from "@/assets";
+import EmotionCard from "@/componants/cards/emotionCards";
+import ThoughtsCard from "@/componants/cards/thoughtsCard";
 
 
 
@@ -132,7 +133,7 @@ export default function CaseCard(props: caseProps): JSX.Element {
                                     <Text style={globalStyles.heading}>מחשבות ועיוותים</Text>
                                 </View>
                                 <View style={globalStyles.modalContent}>
-                                    <ThoughtsCard diary={diary} distortions={item.distortions} counterThoughts={item.counterThoughts} />
+                                    <ThoughtsCard diary={diary} distortions={item.distortionIds} counterThoughts={item.counterThoughtIds} />
                                 </View>
                                 <View style={globalStyles.buttonContainer}>
                                     <TouchableOpacity style={globalStyles.button} onPress={closeThoughtsModal}>

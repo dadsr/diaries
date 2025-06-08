@@ -16,6 +16,7 @@ interface SelectorProps {
 }
 
 export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): JSX.Element {
+    console.log("EmotionsMultiSelector() diary ",diary);
 
     const emotionOptions: EmotionOption[] = Object.entries(EmotionsConst).map(([key, emotion]) => ({
         value: key as EmotionKey,

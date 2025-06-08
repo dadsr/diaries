@@ -6,20 +6,27 @@ import {Controller, useForm} from "react-hook-form";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import {router, useLocalSearchParams} from "expo-router";
 import React, {JSX, useEffect, useState} from "react";
-import {ImageBackground, Platform, SafeAreaView, ScrollView as DefaultScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {
+    ImageBackground,
+    Platform,
+    SafeAreaView,
+    ScrollView as DefaultScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 import services from "@/services/Services";
 import {Emotion} from "@/models/Emotion";
 import {Case} from "@/models/Case";
-import {CaseFormValues, ThoughtItem} from "@/models/Types";
+import {CaseFormValues} from "@/models/Types";
 import BackButton from "@/componants/buttons/backButton";
 
 import EmotionsModal from "@/componants/modals/emotionsModal";
-import {DistortionThought} from "@/models/DistortionThought";
 import DistortionsModal from "@/componants/modals/distortionsModal";
 import ConditioningModal from "@/componants/modals/conditioningModal";
-import {DistortionsThoughtKey, distortionsThoughtsArray} from "@/models/consts/DistortionsThoughtsConst";
-import {CounterConditioningThought} from "@/models/CounterConditioningThought";
-import {counterConditioningThoughtsArray, CounterThoughtKey} from "@/models/consts/CounterConditioningThoughtsConst";
+import {distortionsThoughtsArray} from "@/models/consts/DistortionsThoughtsConst";
+import {counterConditioningThoughtsArray} from "@/models/consts/CounterConditioningThoughtsConst";
 
 
 export default function EditCase(): JSX.Element {
@@ -27,12 +34,9 @@ export default function EditCase(): JSX.Element {
     const diary: number = Number(useLocalSearchParams().diary);
     const id: number = Number(useLocalSearchParams().id);
 
-    const [distortionsThoughts, setisDistortortionsThoughtsArray] = useState<ThoughtItem[]>((distortionsThoughtsArray));
     const [selectedDistortionsThoughtsIds, setSelectedDistortionsThoughtsIds] = useState<string[]>([]);
 
-    const [counterConditioningThoughts, setCounterConditioningThoughtsArray] = useState<ThoughtItem[]>((counterConditioningThoughtsArray));
     const [selectedConditioningThoughtsIds, setSelectedConditioningThoughtsIds] = useState<string[]>([]);
-
 
     const [isSubmiting, setIsSubmiting] = useState<boolean>(false);
     const [showPicker, setShowPicker] = useState(false);
@@ -48,8 +52,8 @@ export default function EditCase(): JSX.Element {
             emotions: [] as Emotion[],
             behavior: '',
             symptoms: '',
-            distortions: [] as DistortionThought[],
-            counterThoughts: [] as CounterConditioningThought[],
+            distortionIds: [] ,
+            counterThoughtIds: [],
         }
     });
 
@@ -70,27 +74,16 @@ export default function EditCase(): JSX.Element {
                     setValue('emotions', myCase.emotions.map((emotion:Emotion) => new Emotion(emotion.getEmotion, emotion.getIntensity)));
                     setValue('behavior', myCase.behavior!);
                     setValue('symptoms', myCase.symptoms!);
-                    setValue('distortions', myCase.distortions.map((thought: DistortionThought) => new DistortionThought(thought.getDistortion)));
-                    setValue('counterThoughts', myCase.counterThoughts.map((thought: CounterConditioningThought) => new CounterConditioningThought(thought.getCounterThought)));
-
-                    setSelectedDistortionsThoughtsIds(
-                        myCase.distortions
-                            .map((thought: DistortionThought) => thought.getDistortion)
-                            .filter((id): id is DistortionsThoughtKey => id !== null)
-                    );
-                    setSelectedConditioningThoughtsIds(
-                        myCase.counterThoughts
-                            .map((thought: CounterConditioningThought) => thought.getCounterThought)
-                            .filter((id): id is CounterThoughtKey => id !== null)
-                    );
+                    setValue('distortionIds', myCase.distortionIds);
+                    setValue('counterThoughtIds',  myCase.counterThoughtIds);
                 }
             })();
         }
     }, [id,setValue]);
 
     const onBack =(() =>{
-            console.log("onBack() diary ",diary);
-            router.back();
+        console.log("onBack() diary ",diary);
+        router.back();
     });
 
     const submitForm = async (data: CaseFormValues) => {
@@ -102,11 +95,11 @@ export default function EditCase(): JSX.Element {
         caseInstance.caseName = data.caseName;
         caseInstance.caseDate = data.caseDate;
         caseInstance.thought = data.thought;
-        caseInstance.emotions = data.emotions.map((emotion:Emotion) => new Emotion(emotion.getEmotion, emotion.getIntensity));
         caseInstance.behavior = data.behavior;
         caseInstance.symptoms = data.symptoms;
-        caseInstance.distortions = data.distortions.map((thought:DistortionThought) => new DistortionThought(thought.getDistortion));
-        caseInstance.counterThoughts = data.counterThoughts.map((thought:CounterConditioningThought) => new CounterConditioningThought(thought.getCounterThought));
+        caseInstance.emotions = data.emotions.map((emotion:Emotion) => new Emotion(emotion.getEmotion, emotion.getIntensity));
+        caseInstance.distortionIds = data.distortionIds;
+        caseInstance.counterThoughtIds = data.counterThoughtIds;
 
         if (caseInstance.id > 0) {
             await services.updateCase(diary,caseInstance);

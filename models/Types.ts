@@ -1,11 +1,8 @@
 import {EmotionKey} from "@/models/consts/EmotionsConst";
 import {Emotion} from "@/models/Emotion";
-import {DistortionThought} from "@/models/DistortionThought";
-import {CounterConditioningThought} from "@/models/CounterConditioningThought";
 import {DistortionsThoughtKey} from "@/models/consts/DistortionsThoughtsConst";
 import {CounterThoughtKey} from "@/models/consts/CounterConditioningThoughtsConst";
 import {Control} from "react-hook-form";
-
 
 
 export interface SerializedEmotion {
@@ -28,8 +25,8 @@ export interface SerializedCase {
     emotions: SerializedEmotion[];
     behavior: string | null;
     symptoms: string | null;
-    distortions: SerializedDistortionThought[];
-    counterThoughts: SerializedCounterConditioningThought[];
+    distortionIds: string[];
+    counterThoughtIds: string[];
 }
 
 export type CaseFormValues = {
@@ -40,8 +37,8 @@ export type CaseFormValues = {
     emotions: Emotion[];
     behavior: string;
     symptoms: string;
-    distortions: DistortionThought[];
-    counterThoughts: CounterConditioningThought[];
+    distortionIds: string[];
+    counterThoughtIds: string[];
 };
 
 export interface EmotionOption {
@@ -57,12 +54,12 @@ export interface ThoughtItem {
 }
 
 export interface ModalProps  {
+    diary: number;
     control: Control<CaseFormValues>;
     visible: boolean;
     onClose: () => void;
     onSave: (selectedIds: string[]) => void;
     options: ThoughtItem[];
-    diary: number;
 }
 
 export type BackButtonProps = {
