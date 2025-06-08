@@ -6,6 +6,7 @@ interface SaveProps {
     onPress: () => void;
 }
 export default function SaveButton({onPress}:SaveProps): JSX.Element {
+    console.log("SaveButton()");
 
     return (
         <View style={globalStyles.buttonContainer}>

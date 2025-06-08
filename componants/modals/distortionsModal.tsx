@@ -32,28 +32,22 @@ export default function DistortionsModal({ diary, control, visible, onClose, onS
                 resizeMode="cover"
             >
                 <ScrollView contentContainerStyle={globalStyles.scrollView}>
-
+                    <BackButton onPress={onClose} />
                     {/* Heading */}
                     <Text style={[globalStyles.heading, { paddingRight:10 }]}>
                         עיוות חשיבה
                     </Text>
-
                     <View style={globalStyles.selectorContainer}>
-                        <Modal visible={visible} animationType="slide">
-                            <View style={{ flex: 1 }}>
-                                <MultiChackBoxes
-                                    diary={diary}
-                                    options={distortionsThoughtsArray}
-                                    control={control}
-                                    headerText="בחר עיוותי חשיבה"
-                                    name="distortionIds"
-                                />
-                                <BackButton onPress={() => onClose} />
-                                <SaveButton onPress={()=>clickSave} />
-                            </View>
-                        </Modal>
+                        <MultiChackBoxes
+                            diary={diary}
+                            options={distortionsThoughtsArray}
+                            control={control}
+                            headerText="בחר עיוותי חשיבה"
+                            name="distortionIds"
+                        />
                     </View>
                 </ScrollView>
+                <SaveButton onPress={clickSave} />
             </ImageBackground>
         </Modal>
     );

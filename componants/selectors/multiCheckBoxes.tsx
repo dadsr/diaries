@@ -3,6 +3,7 @@ import {CaseFormValues, ThoughtItem} from "@/models/Types";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Control, Controller} from "react-hook-form";
 import {Checkbox} from "expo-checkbox";
+import {globalStyles} from "@/styles/globalStyles";
 
 interface CheckboxesProps {
     diary:number;
@@ -19,7 +20,7 @@ export default function MultiChackBoxes(props: CheckboxesProps): JSX.Element {
 
 
     return (
-        <View style={styles.container}>
+        <View style={[globalStyles.container]}>
             <Text style={styles.headerText}>{headerText}</Text>
             <Controller
                 control={control}
@@ -65,10 +66,10 @@ export default function MultiChackBoxes(props: CheckboxesProps): JSX.Element {
 
 const styles = StyleSheet.create({
     container: { padding: 16, backgroundColor: '#fff', flex: 1 },
-    row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderColor: '#eee' },
-    headerText: { fontWeight: 'bold', fontSize: 18, marginBottom: 8 },
-    checkbox: { marginRight: 16 },
+    row: { flexDirection: 'row-reverse', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderColor: '#eee' },
+    headerText: { fontWeight: 'bold', fontSize: 18, marginBottom: 8, textAlign: 'right', writingDirection: 'rtl' },
+    checkbox: { marginLeft: 16 },
     cell: { flex: 1 },
-    displayName: { fontWeight: 'bold', fontSize: 16 },
-    description: { color: '#666', fontSize: 14 },
+    displayName: { fontWeight: 'bold', fontSize: 16, textAlign: 'right', writingDirection: 'rtl'},
+    description: { color: '#666', fontSize: 14, textAlign: 'right', writingDirection: 'rtl'},
 });

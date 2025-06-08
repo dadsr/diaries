@@ -36,7 +36,7 @@ export default function CaseCard(props: caseProps): JSX.Element {
         router.push({ pathname: '/editCase', params: {diary: diary, id: item.id } });
     };
 
-
+// todo refresh after delete
     const deleteCase = () => {
         console.log("deleteCase() id:",item.id);
         services.deleteCase(diary, item.id);

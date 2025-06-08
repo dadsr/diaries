@@ -49,6 +49,7 @@ export default function EditCase(): JSX.Element {
             caseName: '',
             caseDate: new Date(),
             thought: '',
+
             emotions: [] as Emotion[],
             behavior: '',
             symptoms: '',
@@ -110,13 +111,18 @@ export default function EditCase(): JSX.Element {
         router.back();
     };
 
-    const handleDistortionsSave = (selectedIds: string[]) => {
-        setSelectedDistortionsThoughtsIds(selectedIds);
+    const handleEmotionsSave = (data: CaseFormValues) => {
+        setValue('emotions', data.emotions);
+        setIsEmotionsModalVisible(false);
+    };
+
+    const handleDistortionsSave = (data: CaseFormValues) => {
+        setValue('distortionIds', data.distortionIds);
         setIsDistorsionsModalVisible(false);
     };
 
-    const handleConditioningSave = (selectedIds: string[]) => {
-        setSelectedConditioningThoughtsIds(selectedIds);
+    const handleConditioningSave = (data: CaseFormValues) => {
+        setValue('counterThoughtIds', data.counterThoughtIds);
         setIsConditioningModalVisible(false);
     };
 
@@ -243,7 +249,7 @@ export default function EditCase(): JSX.Element {
                             control={control}
                             visible={isEmotionsModalVisible}
                             onClose={() => setIsEmotionsModalVisible(false)}
-                            onSave={() => setIsEmotionsModalVisible(false)}
+                            onSave={handleSubmit(handleEmotionsSave)}
                             options={distortionsThoughtsArray}
                             diary={diary}
                         />
@@ -320,7 +326,7 @@ export default function EditCase(): JSX.Element {
                                 control={control}
                                 visible={isDistorsionsModalVisible}
                                 onClose={() => setIsDistorsionsModalVisible(false)}
-                                onSave={() => handleDistortionsSave(selectedDistortionsThoughtsIds)}
+                                onSave={handleSubmit(handleDistortionsSave)}
                                 options={distortionsThoughtsArray}
                                 diary={diary}
                             />
@@ -354,7 +360,7 @@ export default function EditCase(): JSX.Element {
                                 control={control}
                                 visible={isConditioningModalVisible}
                                 onClose={() => setIsConditioningModalVisible(false)}
-                                onSave={() => handleConditioningSave(selectedConditioningThoughtsIds)}
+                                onSave={handleSubmit(handleConditioningSave)}
                                 options={counterConditioningThoughtsArray}
                                 diary={diary}
                             />

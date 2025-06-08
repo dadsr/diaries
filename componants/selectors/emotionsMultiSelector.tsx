@@ -1,12 +1,13 @@
-import { Control, Controller } from "react-hook-form";
-import { CaseFormValues, EmotionOption } from "@/models/Types";
+import {Control, Controller} from "react-hook-form";
+import {CaseFormValues, EmotionOption} from "@/models/Types";
 import React, {JSX} from "react";
-import { Emotion } from "@/models/Emotion";
-import { EmotionKey, EmotionsConst } from "@/models/consts/EmotionsConst";
-import { Platform, Text, View } from "react-native";
-import { globalStyles } from "@/styles/globalStyles";
-import { MultiSelect } from "react-native-element-dropdown";
+import {Emotion} from "@/models/Emotion";
+import {EmotionKey, EmotionsConst} from "@/models/consts/EmotionsConst";
+import {Platform, Text, View} from "react-native";
+import {globalStyles} from "@/styles/globalStyles";
+import {MultiSelect} from "react-native-element-dropdown";
 import Slider from "@react-native-community/slider";
+import {emotionsStyles} from "@/styles/emotionsStyles";
 
 
 interface SelectorProps {
@@ -30,9 +31,9 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
             markings.push(
                 <View
                     key={`mark-${i}`}
-                    style={[globalStyles.sliderMark, { left: `${i}%` }]}
+                    style={[emotionsStyles.sliderMark, { left: `${i}%` }]}
                 >
-                    <View style={globalStyles.markLine} />
+                    <View style={emotionsStyles.markLine} />
                 </View>
             );
         }
@@ -59,47 +60,49 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
                     // Array of selected values for MultiSelect
                     const selectedValues = selectValue.map(option => option.value);
 
-                    const onChange =(selectedItems: EmotionKey[]) => {
+                    const onChange = (selectedItems: string[]) => {
                         const emotions = selectedItems.map((item) => {
-                            const existing = selectValue.find(option => option.value === item);
-                            return new Emotion(item, existing ? existing.intensity : 50);
+                            const key = item as EmotionKey;
+                            const existing = selectValue.find(option => option.value === key);
+                            return new Emotion(key, existing ? existing.intensity : 50);
                         });
                         field.onChange(emotions);
-                    }
+                    };
 
                     return (
                         <View>
                             {Platform.OS === "web" ? (
                                 <Text>Web platform not supported yet.</Text>
-                                // Uncomment and implement web select component as needed
+                                // todo Uncomment and implement web select component as needed
                             ) : (
                                 // Mobile
-                                <View style={globalStyles.selectorContainer}>
+                                <View style={emotionsStyles.selectorContainer}>
                                     <MultiSelect
-                                        selectedTextStyle={globalStyles.multiSelectPlaceholder}
-                                        inputSearchStyle={globalStyles.multiSelectSearch}
-                                        iconStyle={globalStyles.multiSelectIcon}
+                                        selectedTextStyle={emotionsStyles.multiSelectPlaceholder}
+                                        inputSearchStyle={emotionsStyles.multiSelectSearch}
+                                        iconStyle={emotionsStyles.multiSelectIcon}
                                         data={emotionOptions}
                                         labelField="label"
                                         valueField="value"
                                         value={selectedValues}
-                                        onChange={()=> onChange}
+                                        onChange={onChange}
                                         placeholder="בחר רגש..."
                                         search
                                         searchPlaceholder="חיפוש..."
                                     />
+
                                 </View>
                             )}
                             {/* Intensity sliders for selected emotions */}
                             {selectValue.map((option: EmotionOption) => (
-                                <View key={`slider-${option.value}`} style={globalStyles.sliderContainer}>
-                                    <Text style={globalStyles.emotionLabel}>{option.label}</Text>
-                                    <View style={globalStyles.sliderWithMarkings}>
-                                        <View style={globalStyles.markingsContainer}>
+                                <View key={`slider-${option.value}`} style={emotionsStyles.sliderContainer}>
+                                    <Text style={emotionsStyles.emotionLabel}>{option.label}</Text>
+                                    <View style={emotionsStyles.sliderWithMarkings}>
+                                        <View style={emotionsStyles.markingsContainer}>
                                             {renderSliderMarkings()}
                                         </View>
                                         <Slider
-                                            style={globalStyles.slider}
+                                            style={emotionsStyles.slider}
                                             minimumValue={0}
                                             maximumValue={100}
                                             step={10}
@@ -116,7 +119,7 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
                                             maximumTrackTintColor="#CCCCCC"
                                         />
                                     </View>
-                                    <Text style={globalStyles.intensityValue}>{option.intensity}%</Text>
+                                    <Text style={emotionsStyles.intensityValue}>{option.intensity}%</Text>
                                 </View>
                             ))}
                         </View>

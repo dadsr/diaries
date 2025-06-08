@@ -12,7 +12,6 @@ interface ThoughtsProps {
 }
 
 export default function ThoughtsCard({ diary, distortions, counterThoughts }: ThoughtsProps): JSX.Element {
-    // Map IDs to their full objects
     const selectedDistortions = distortionsThoughtsArray.filter(d => distortions.includes(d.id));
     const selectedCounterThoughts = counterConditioningThoughtsArray.filter(c => counterThoughts.includes(c.id));
 
