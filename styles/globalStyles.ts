@@ -1,17 +1,19 @@
-import {StyleSheet, TextStyle} from 'react-native';
-
+import { StyleSheet, TextStyle } from 'react-native';
 
 export const colors = {
     primary: '#4630EB',
     secondary: '#000020',
-    accent: '#F3534A',
+    accent: '#f7fd04',
     background: '#f0f0f0',
     text: '#101010',
     textLight: '#606060',
-    white: '#FFFFFF',
+    white: 'rgb(255,255,255)',
+    whiteOpa: 'rgba(255,255,255,0.22)',
     black: '#000000',
     error: '#FF3B30',
     success: '#4CD964',
+    border: '#000',
+    link: '#0d0084',
 };
 
 export const typography = {
@@ -30,6 +32,7 @@ export const typography = {
 };
 
 export const spacing = {
+    xxs: 1,
     xs: 2,
     s: 8,
     m: 16,
@@ -39,7 +42,6 @@ export const spacing = {
 };
 
 export const globalStyles = StyleSheet.create({
-    // RTL specific styles
     rtlContainer: {
         flexDirection: 'row-reverse',
     },
@@ -47,121 +49,137 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'right',
         writingDirection: 'rtl',
     },
+    background: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
 
+    },
     container: {
         flex: 1,
         padding: spacing.m,
-        textAlign: 'right',
-        writingDirection: 'rtl',
     },
     view: {
-        borderColor: '#000020',
+        borderColor: colors.border,
         width: '100%',
-        marginBottom: 16,
+        marginBottom: spacing.m,
     },
     scrollView: {
-        borderColor: '#000020',
+        borderColor: colors.border,
         width: '100%',
-        marginBottom: 5,
+        marginBottom: spacing.s,
+    },
+    error: {
+        color: colors.error,
+        marginBottom: spacing.s,
     },
     heading: {
         textAlign: 'right',
         writingDirection: 'rtl',
         fontSize: typography.fontSizes.xlarge,
-        fontWeight: 'bold' as TextStyle['fontWeight'],
+        fontWeight: typography.fontWeights.bold,
         color: colors.primary,
         marginBottom: spacing.m,
     },
     text: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 10,
+        fontSize: typography.fontSizes.medium,
+        fontWeight: typography.fontWeights.bold,
+        marginBottom: spacing.s,
         textAlign: 'right',
-        color: '#333',
+        color: colors.text,
+        backgroundColor: colors.whiteOpa,
     },
-    error: {
-        color: 'red',
-        marginBottom: 8
+    inputText: {
+        fontSize: typography.fontSizes.medium,
+        fontWeight: typography.fontWeights.bold,
+        marginBottom: spacing.s,
+        textAlign: 'right',
+        color: colors.text,
+        backgroundColor: colors.white,
+        borderWidth: spacing.xs,
+        borderColor: colors.border,
+        padding: spacing.s,
+        borderRadius: 4,
     },
     textarea: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: 8,
-        marginVertical: 8,
+        borderWidth: spacing.xs,
+        borderColor: colors.border,
+        padding: spacing.s,
+        marginVertical: spacing.s,
         borderRadius: 4,
         height: 100,
+        backgroundColor: colors.white,
     },
     input: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: 8,
-        marginVertical: 8,
+        borderWidth: spacing.xs,
+        borderColor: colors.border,
+        padding: spacing.s,
+        marginVertical: spacing.s,
         borderRadius: 4,
     },
-
     buttonContainer: {
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-
     },
     button: {
         backgroundColor: colors.primary,
         margin: spacing.xs,
         padding: spacing.s,
         width: '70%',
+        borderWidth: spacing.xxs,
         borderRadius: 15,
+        borderColor:colors.accent,
         alignItems: 'center',
     },
     buttonText: {
         textAlign: 'right',
         writingDirection: 'rtl',
         color: colors.white,
-        fontWeight: 'medium' as TextStyle['fontWeight'],
-
+        fontWeight: typography.fontWeights.bold,
     },
     backButtonContainer: {
-        width: 58,
-        height: 58,
+        width: 60,
+        height: 60,
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     buttonIcon: {
-        width: 58,
-        height: 58,
+        width: 60,
+        height: 60,
     },
-
-
-    modalContent:{
-        flex:1,
+    modalContent: {
+        flex: 1,
         alignItems: 'stretch',
-        borderWidth: 1,
-        borderColor: '#010000',
-        backgroundColor: '#000',
-},
+        borderWidth: spacing.xs,
+        borderColor: colors.border,
+        backgroundColor: colors.background,
+    },
     card: {
         borderWidth: spacing.xs,
         borderColor: colors.textLight,
-        textAlign: 'right',
-        writingDirection: 'rtl',
-        backgroundColor: colors.white,
+        backgroundColor: colors.whiteOpa,
         borderRadius: 8,
         padding: spacing.m,
         marginVertical: spacing.s,
-        boxShadow: "0px 2px 4px rgba(0,0,0,0.25)",
+        // React Native shadow for iOS:
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
         elevation: 3,
     },
     infoItem: {
         flexDirection: 'row-reverse',
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: spacing.l,
+        marginBottom: spacing.l,
         alignItems: 'flex-start',
-
     },
     label: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#333',
+        fontSize: typography.fontSizes.medium,
+        fontWeight: typography.fontWeights.bold,
+        color: colors.text,
         width: 80,
     },
     value: {
@@ -171,26 +189,19 @@ export const globalStyles = StyleSheet.create({
     },
     link: {
         fontSize: typography.fontSizes.xlarge,
-        color: '#007AFF',
+        color: colors.link,
         textDecorationLine: 'underline',
-        paddingEnd: 10,
+        paddingEnd: spacing.s,
     },
-    background: {
+
+    selectbackground: {
         flex: 1,
         width: '100%',
         height: '100%',
     },
-
-    selectbackground:{
-        flex: 1,
-        width: '100%',
-        height: '100%',
-    },
-    modelOpener: {
-
+    modalOpener: {
         alignItems: 'center',
-        fontSize : typography.fontSizes.xxlarge,
-        fontWeight: 'bold',
-
+        fontSize: typography.fontSizes.xxlarge,
+        fontWeight: typography.fontWeights.bold,
     },
 });

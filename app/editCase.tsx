@@ -2,7 +2,7 @@ import {bgImg, sImg} from "@/assets";
 import {globalStyles} from "@/styles/globalStyles";
 
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {Controller, useForm} from "react-hook-form";
+import {Controller, useForm, UseFormTrigger} from "react-hook-form";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import {router, useLocalSearchParams} from "expo-router";
 import React, {JSX, useEffect, useState} from "react";
@@ -27,6 +27,8 @@ import DistortionsModal from "@/componants/modals/distortionsModal";
 import ConditioningModal from "@/componants/modals/conditioningModal";
 import {distortionsThoughtsArray} from "@/models/consts/DistortionsThoughtsConst";
 import {counterConditioningThoughtsArray} from "@/models/consts/CounterConditioningThoughtsConst";
+import Toast from "react-native-toast-message";
+import MyToast from "@/componants/toast/toast";
 
 
 export default function EditCase(): JSX.Element {
@@ -43,7 +45,7 @@ export default function EditCase(): JSX.Element {
     const [isEmotionsModalVisible, setIsEmotionsModalVisible] = useState(false);
     const [isDistorsionsModalVisible, setIsDistorsionsModalVisible] = useState(false);
     const [isConditioningModalVisible, setIsConditioningModalVisible] = useState(false);
-    const {control, handleSubmit, setValue, watch, formState: {errors}} = useForm<CaseFormValues>({
+    const {control, trigger, handleSubmit, setValue, watch, formState: {errors}} = useForm<CaseFormValues>({
         defaultValues: {
             id: 0,
             caseName: '',
@@ -89,7 +91,6 @@ export default function EditCase(): JSX.Element {
 
     const submitForm = async (data: CaseFormValues) => {
         console.log("submitForm diary ",diary);
-
         setIsSubmiting(true);
         const caseInstance = new Case();
         caseInstance.id = data.id;
@@ -103,26 +104,95 @@ export default function EditCase(): JSX.Element {
         caseInstance.counterThoughtIds = data.counterThoughtIds;
 
         if (caseInstance.id > 0) {
-            await services.updateCase(diary,caseInstance);
+            await services.updateCase(diary,caseInstance)
+                .then(() =>{
+                        Toast.show({
+                            type: 'success',
+                            text1: 'אירוע עודכן',
+                            text2: caseInstance.caseName,
+                            position: 'top',
+                            swipeable: true,
+                            visibilityTime: 4000,
+                        });
+                    }
+                )
         } else {
-            await services.addCase(diary,caseInstance);
+            await services.addCase(diary,caseInstance)
+                .then(() =>{
+                        Toast.show({
+                            type: 'success',
+                            text1: 'אירוע חדש נשמר',
+                            text2: caseInstance.caseName,
+                            position: 'top',
+                            swipeable: true,
+                            visibilityTime: 4000,
+                        });
+                    }
+                );
         }
         setIsSubmiting(false);
         router.back();
     };
 
+    const handleOpenModal = async (setModalVisible:React.Dispatch<React.SetStateAction<boolean>>,trigger: UseFormTrigger<any>)=>{
+        const isValid = await trigger ("caseName");
+        if (isValid) {
+            setModalVisible(true);
+        }else {
+            Toast.show({
+                    type:'info',
+                    text1: 'שים לב!',
+                    text2: 'שם האירוע הוא שדה חובה',
+                    position:'top',
+                    swipeable:true,
+                    visibilityTime:4000,
+                }
+            );
+        }
+    }
+
     const handleEmotionsSave = (data: CaseFormValues) => {
+        console.log("handleEmotionsSave() id:",data.id);
         setValue('emotions', data.emotions);
+        Toast.show({
+                type:'success',
+                text1: 'רגשות עודכנו',
+                text2: '',
+                position:'top',
+                swipeable:true,
+                visibilityTime:2000,
+            }
+        );
         setIsEmotionsModalVisible(false);
     };
 
     const handleDistortionsSave = (data: CaseFormValues) => {
+        console.log("handleDistortionsSave() id:",data.id);
         setValue('distortionIds', data.distortionIds);
+        Toast.show({
+                type:'success',
+                text1: 'מחשבות עודכנו',
+                text2: '',
+                position:'top',
+                swipeable:true,
+                visibilityTime:2000,
+            }
+        );
         setIsDistorsionsModalVisible(false);
     };
 
     const handleConditioningSave = (data: CaseFormValues) => {
+        console.log("handleConditioningSave() id:",data.id);
         setValue('counterThoughtIds', data.counterThoughtIds);
+        Toast.show({
+                type:'success',
+                text1: 'מחשבות עודכנו',
+                text2: '',
+                position:'top',
+                swipeable:true,
+                visibilityTime:2000,
+            }
+        );
         setIsConditioningModalVisible(false);
     };
 
@@ -132,9 +202,7 @@ export default function EditCase(): JSX.Element {
             style={globalStyles.background}
             resizeMode="cover"
         >
-            <SafeAreaView  style = {[globalStyles.container, {
-                paddingTop: Math.max(insets.top + 15,20),
-                paddingBottom: Math.max(insets.bottom - 5,20)}]}>
+            <SafeAreaView  style = {[globalStyles.container, { paddingTop: Math.max(insets.top + 15,20), paddingBottom: Math.max(insets.bottom - 5,20) }]}>
                 <BackButton onPress={onBack}/>
                 <DefaultScrollView style = {globalStyles.scrollView}>
 
@@ -146,7 +214,7 @@ export default function EditCase(): JSX.Element {
                         rules={{required: "שם האירוע הוא שדה חובה"}}
                         render={({field: {onChange, onBlur, value}}) => (
                             <TextInput
-                                style={[globalStyles.input,globalStyles.rtlText]}
+                                style={[globalStyles.inputText,globalStyles.rtlText]}
                                 placeholder="שם האירוע"
                                 onBlur={onBlur}
                                 onChangeText={onChange}
@@ -180,7 +248,7 @@ export default function EditCase(): JSX.Element {
                                     <>
                                         <TouchableOpacity onPress={() => setShowPicker(true)}>
                                             <TextInput
-                                                style={globalStyles.input}
+                                                style={globalStyles.inputText}
                                                 placeholder="תאריך האירוע"
                                                 onBlur={onBlur}
                                                 value={value ? new Date(value).toLocaleDateString('he-IL') : ''}
@@ -192,7 +260,7 @@ export default function EditCase(): JSX.Element {
                                             <DateTimePicker
                                                 value={value ? new Date(value) : new Date()}
                                                 mode="date"
-                                                display="default"
+                                                display="spinner"
                                                 onChange={(event, selectedDate) => {
                                                     setShowPicker(false); // Hide picker after selection
                                                     if (selectedDate) {
@@ -227,18 +295,15 @@ export default function EditCase(): JSX.Element {
 
                     {/* Emotions */}
                     <>
-                        <View style={[
-                            globalStyles.buttonContainer,
-                            { borderWidth:5, borderRadius:10, borderColor:'#000' }
-                        ]}>
+                        <View style={ globalStyles.buttonContainer}>
                             <ImageBackground
                                 source={sImg}
-                                style={[globalStyles.selectbackground]}
+                                style={globalStyles.background}
                                 resizeMode="cover"
                             >
                                 <TouchableOpacity
-                                    style={globalStyles.modelOpener}
-                                    onPress={() => setIsEmotionsModalVisible(true)}
+                                    style={globalStyles.modalOpener}
+                                    onPress={() => handleOpenModal(setIsEmotionsModalVisible,trigger)}
                                 >
                                     <Text style={globalStyles.text}>רגשות</Text>
                                 </TouchableOpacity>
@@ -303,18 +368,15 @@ export default function EditCase(): JSX.Element {
                     {diary === 2 &&(
                         <>
                             {diary === 2 && (
-                                <View style={[
-                                    globalStyles.buttonContainer,
-                                    { borderWidth:5, borderRadius:10, borderColor:'#000' }
-                                ]}>
+                                <View style={globalStyles.buttonContainer}>
                                     <ImageBackground
                                         source={sImg}
-                                        style={[globalStyles.selectbackground]}
+                                        style={globalStyles.selectbackground}
                                         resizeMode="cover"
                                     >
                                         <TouchableOpacity
-                                            style={globalStyles.modelOpener}
-                                            onPress={() => setIsDistorsionsModalVisible(true)}
+                                            style={globalStyles.modalOpener}
+                                            onPress={()=> handleOpenModal(setIsDistorsionsModalVisible,trigger)}
                                         >
                                             <Text style={globalStyles.text}>עיוות חשיבה</Text>
                                         </TouchableOpacity>
@@ -337,18 +399,15 @@ export default function EditCase(): JSX.Element {
                     {diary === 2 &&(
                         <>
                             {diary === 2 && (
-                                <View style={[
-                                    globalStyles.buttonContainer,
-                                    { borderWidth:5, borderRadius:10, borderColor:'#000' }
-                                ]}>
+                                <View style={globalStyles.buttonContainer}>
                                     <ImageBackground
                                         source={sImg}
-                                        style={[globalStyles.selectbackground]}
+                                        style={globalStyles.selectbackground}
                                         resizeMode="cover"
                                     >
                                         <TouchableOpacity
-                                            style={globalStyles.modelOpener}
-                                            onPress={() => setIsConditioningModalVisible(true)}
+                                            style={globalStyles.modalOpener}
+                                            onPress={()=> handleOpenModal(setIsConditioningModalVisible,trigger)}
                                         >
                                             <Text style={globalStyles.text}>מחשבות חליפיות</Text>
                                         </TouchableOpacity>
@@ -376,5 +435,5 @@ export default function EditCase(): JSX.Element {
             </SafeAreaView>
 
         </ImageBackground>
-    )
+    );
 }

@@ -1,5 +1,5 @@
 import React, {JSX, useState} from "react";
-import {ImageBackground, Modal, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ImageBackground, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Case} from "@/models/Case";
 import {router} from "expo-router";
 import services from "@/services/Services";
@@ -8,18 +8,18 @@ import {globalStyles} from "@/styles/globalStyles";
 import {bgImg, sImg} from "@/assets";
 import EmotionCard from "@/componants/cards/emotionCards";
 import ThoughtsCard from "@/componants/cards/thoughtsCard";
-
+import Toast from "react-native-toast-message";
 
 
 interface caseProps {
     diary: number;
     case: Case;
+    onDelete?: () => void;
 }
 
-export default function CaseCard(props: caseProps): JSX.Element {
+export default function CaseCard({diary, case: item, onDelete}: caseProps): JSX.Element {
     console.log("CaseCard()");
 
-    const {diary: diary,case: item } = props
     const [isFeelingsModalVisible, setIsFeelingsModalVisible] = useState(false);
     const [isThoughtsModalVisible, setIsThoughtsModalVisible] = useState(false);
 
@@ -36,23 +36,23 @@ export default function CaseCard(props: caseProps): JSX.Element {
         router.push({ pathname: '/editCase', params: {diary: diary, id: item.id } });
     };
 
-// todo refresh after delete
     const deleteCase = () => {
         console.log("deleteCase() id:",item.id);
-        services.deleteCase(diary, item.id);
+        services.deleteCase(diary, item.id)
+            .then(
+                () =>{
+                    Toast.show({
+                        type: 'success',
+                        text1: 'אירוע נמחק',
+                        text2: item.caseName,
+                        position: 'top',
+                        swipeable: true,
+                        visibilityTime: 4000,
+                    });
+                    if(onDelete) onDelete();
+                }
+            );
 
-        switch(diary) {
-            case 1:
-                router.replace('/(tabs)/firstDiary');
-                break;
-            case 2:
-                router.replace('/(tabs)/secondDiary');
-                break;
-            case 3:{
-                router.replace('/(tabs)/thirdDiary');
-                break;
-            }
-        }
     };
 
     return (
@@ -60,13 +60,13 @@ export default function CaseCard(props: caseProps): JSX.Element {
             <Text style={globalStyles.text} >אירוע: {item.caseName}</Text>
             <Text style={globalStyles.text} >תאריך: {item.caseDate.toLocaleDateString('he-IL')}</Text>
             <Text style={globalStyles.text} >מחשבה: {item.thought}</Text>
-            <View style={[globalStyles.buttonContainer,{borderWidth:2,borderRadius:10,borderColor:'#000'}]}>
+            <View style={globalStyles.buttonContainer}>
                 <ImageBackground
                     source={sImg}
-                    style={[globalStyles.background,{height:'150%',paddingBottom:20}]}
+                    style={globalStyles.background}
                     resizeMode="cover"
                 >
-                    <TouchableOpacity style={globalStyles.modelOpener} onPress={openFeelingsModal}>
+                    <TouchableOpacity style={globalStyles.modalOpener} onPress={openFeelingsModal}>
                         <Text style={globalStyles.text} >תצוגת רגשות</Text>
                     </TouchableOpacity>
                 </ImageBackground>
@@ -77,25 +77,19 @@ export default function CaseCard(props: caseProps): JSX.Element {
                     onRequestClose={closeFeelingsModal}
                     // transparent={true}
                 >
-                    <ImageBackground
-                        source={bgImg}
-                        style={globalStyles.background}
-                        resizeMode="cover"
-                    >
-                        <View style={globalStyles.container}>
-                            <View style={globalStyles.heading}>
-                                <Text style={globalStyles.heading}>רגשות:</Text>
-                            </View>
-                            <View style={globalStyles.modalContent}>
-                                <EmotionCard diary={diary} emotions={item.emotions} />
-                            </View>
-                            <View style={globalStyles.buttonContainer}>
-                                <TouchableOpacity style={globalStyles.button} onPress={closeFeelingsModal}>
-                                    <Text style={globalStyles.buttonText}>חזור</Text>
-                                </TouchableOpacity>
-                            </View>
+                    <View style={globalStyles.container}>
+                        <View style={globalStyles.heading}>
+                            <Text style={globalStyles.heading}>רגשות:</Text>
                         </View>
-                    </ImageBackground>
+                        <View style={globalStyles.modalContent}>
+                            <EmotionCard diary={diary} emotions={item.emotions} />
+                        </View>
+                        <View style={globalStyles.buttonContainer}>
+                            <TouchableOpacity style={globalStyles.button} onPress={closeFeelingsModal}>
+                                <Text style={globalStyles.buttonText}>חזור</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </Modal>
             </View>
 
@@ -106,13 +100,13 @@ export default function CaseCard(props: caseProps): JSX.Element {
                 </>
             )}
             {diary === 2 &&(
-                <View style={[globalStyles.buttonContainer,{borderWidth:2,borderRadius:10,borderColor:'#000'}]}>
+                <View style={globalStyles.buttonContainer}>
                     <ImageBackground
                         source={sImg}
-                        style={[globalStyles.background,{height:'150%',paddingBottom:20}]}
+                        style={globalStyles.background}
                         resizeMode="cover"
                     >
-                        <TouchableOpacity style={globalStyles.modelOpener} onPress={openThoughtsModal}>
+                        <TouchableOpacity style={globalStyles.modalOpener} onPress={openThoughtsModal}>
                             <Text style={globalStyles.text} >מחשבות ועיוותים</Text>
                         </TouchableOpacity>
                     </ImageBackground>

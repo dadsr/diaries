@@ -2,18 +2,10 @@ import {JSX, useCallback, useState} from "react";
 import {Case} from "@/models/Case";
 import services from "@/services/Services";
 import {router, useFocusEffect} from "expo-router";
-import {
-    ImageBackground,
-    SafeAreaView,
-    ScrollView as DefaultScrollView,
-    Text,
-    TouchableOpacity,
-    View
-} from "react-native";
+import {SafeAreaView, ScrollView as DefaultScrollView, Text, TouchableOpacity, View} from "react-native";
 import {globalStyles} from "@/styles/globalStyles";
 
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {bgImg} from "@/assets";
 import CaseCard from "@/componants/cards/caseCard";
 
 
@@ -26,14 +18,18 @@ export default function DiaryScreen({ diary }: DiaryProps): JSX.Element {
     const insets = useSafeAreaInsets();
     const [cases, setCases] = useState<Case[]>([]);
 
-    useFocusEffect (
-        useCallback(() => {
-            console.log("FirstDiary focused, fetching cases...");
-            services.getCases(diary).then((fetchedCases: Case[]) => {
+    const fetchCases = useCallback(() => {
+        services.getCases(diary)
+            .then((fetchedCases: Case[]) => {
                 setCases(fetchedCases)
-            })
-        },[])
-    );
+            });
+    },[diary]);
+
+    const handleCaseDeleted = () => {
+        fetchCases();
+    };
+
+    useFocusEffect (fetchCases);
 
     const addNewCase = () => {
         console.log('addNewCase()');
@@ -43,11 +39,6 @@ export default function DiaryScreen({ diary }: DiaryProps): JSX.Element {
 
 
     return (
-        <ImageBackground
-            source={bgImg}
-            style={globalStyles.background}
-            resizeMode="contain"
-        >
             <SafeAreaView  style = {[globalStyles.container, {
                 paddingTop: Math.max(insets.top + 8,20),
                 paddingBottom: Math.max(insets.bottom - 25,20)}]}>
@@ -55,7 +46,7 @@ export default function DiaryScreen({ diary }: DiaryProps): JSX.Element {
                 <Text style = {globalStyles.heading}>רשימת אירועים:</Text>
                 <DefaultScrollView  style = {globalStyles.scrollView}>
                     {cases.length > 0 ?(
-                        cases.map(c => <CaseCard key={c.id} diary={diary} case={c} />)
+                        cases.map(c => <CaseCard key={c.id} diary={diary} case={c} onDelete={handleCaseDeleted} />)
                     ): (
                         <View style = {globalStyles.card}>
                             <Text style={globalStyles.text}>לא נמצאו אירועים.</Text>
@@ -71,7 +62,6 @@ export default function DiaryScreen({ diary }: DiaryProps): JSX.Element {
                 </View>
 
             </SafeAreaView >
-        </ImageBackground>
     );
 
 }

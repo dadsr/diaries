@@ -16,11 +16,6 @@ export default function ThoughtsCard({ diary, distortions, counterThoughts }: Th
     const selectedCounterThoughts = counterConditioningThoughtsArray.filter(c => counterThoughts.includes(c.id));
 
     return (
-        <ImageBackground
-            source={bgImg}
-            style={globalStyles.background}
-            resizeMode="stretch"
-        >
             <View style={globalStyles.container}>
                 {selectedDistortions.length === 0 && selectedCounterThoughts.length === 0 ? (
                     <View style={globalStyles.card}>
@@ -53,6 +48,5 @@ export default function ThoughtsCard({ diary, distortions, counterThoughts }: Th
                     </View>
                 )}
             </View>
-        </ImageBackground>
     );
 }

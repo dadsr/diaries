@@ -75,9 +75,9 @@ export const emotionsStyles = StyleSheet.create({
     },
     markingsContainer: {
         position: 'absolute',
-        top: 15, // Position markings below the slider track
-        left: 15, // Account for slider padding
-        right: 15, // Account for slider padding
+        top: 15,
+        left: 15,
+        right: 15,
         height: 30,
         zIndex: 1,
         pointerEvents: 'none',
@@ -86,7 +86,7 @@ export const emotionsStyles = StyleSheet.create({
     sliderMark: {
         position: 'absolute',
         alignItems: 'center',
-        transform: [{ translateX: -5 }], // Center the mark
+        transform: [{ translateX: -5 }],
     },
     markLine: {
         width: 1,
@@ -101,18 +101,14 @@ export const emotionsStyles = StyleSheet.create({
         minWidth: 10,
     },
 
-// Update your existing slider style
     slider: {
         width: '100%',
         height: 40,
-        zIndex: 2, // Ensure slider is above markings
-
-
+        zIndex: 2,
     },
 
-// Update sliderContainer for better layout
     sliderContainer: {
-        flexDirection: 'column', // Changed from row to column
+        flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'stretch',
         padding: 10,
@@ -129,7 +125,6 @@ export const emotionsStyles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 5,
         textAlign: 'right',
-        // writingDirection: 'rtl',
     },
 
     intensityValue: {
