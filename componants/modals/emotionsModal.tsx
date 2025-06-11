@@ -1,6 +1,6 @@
 import React, {JSX} from 'react';
 import {ImageBackground, Modal, ScrollView, Text, View} from 'react-native';
-import {globalStyles} from '../../styles/globalStyles';
+import {imageStyles, textStyles, viewStyles} from '../../styles/globalStyles';
 import BackButton from "@/componants/buttons/backButton";
 import {ModalProps} from "@/models/Types";
 import {EmotionsMultiSelector} from "@/componants/selectors/emotionsMultiSelector";
@@ -21,13 +21,13 @@ export default function EmotionsModal({control, visible, onClose, onSave, option
         >
             <ImageBackground
                 source={bgImg}
-                style={globalStyles.background}
+                style={imageStyles.background}
                 resizeMode="cover"
             >
-                <ScrollView contentContainerStyle={globalStyles.scrollView}>
+                <ScrollView contentContainerStyle={viewStyles.scrollView}>
                     <BackButton onPress={onClose} />
                     {/* Heading */}
-                    <Text style={[globalStyles.heading, { paddingRight:10 }]}>
+                    <Text style={[textStyles.heading, { paddingRight:10 }]}>
                         רגשות
                     </Text>
                     <View style={emotionsStyles.selectorContainer}>
@@ -38,7 +38,7 @@ export default function EmotionsModal({control, visible, onClose, onSave, option
                     </View>
                 </ScrollView>
 
-                <SaveButton onPress={onSave}/>
+                <SaveButton onPress={() =>onSave}/>
             </ImageBackground>
         </Modal>
     );

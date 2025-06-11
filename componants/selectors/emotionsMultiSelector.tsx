@@ -4,7 +4,7 @@ import React, {JSX} from "react";
 import {Emotion} from "@/models/Emotion";
 import {EmotionKey, EmotionsConst} from "@/models/consts/EmotionsConst";
 import {Platform, Text, View} from "react-native";
-import {globalStyles} from "@/styles/globalStyles";
+import {textStyles, viewStyles} from "@/styles/globalStyles";
 import {MultiSelect} from "react-native-element-dropdown";
 import Slider from "@react-native-community/slider";
 import {emotionsStyles} from "@/styles/emotionsStyles";
@@ -41,8 +41,8 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
     };
 
     return (
-        <View style={globalStyles.container}>
-            <Text style={globalStyles.text}>רגשות:</Text>
+        <View style={viewStyles.container}>
+            <Text style={textStyles.text}>רגשות:</Text>
             <Controller
                 name = {name}
                 control = {control}

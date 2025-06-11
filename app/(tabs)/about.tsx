@@ -1,6 +1,6 @@
 import {JSX} from "react";
 import {ImageBackground, Linking, SafeAreaView, Text, TouchableOpacity, View} from "react-native";
-import {globalStyles} from "@/styles/globalStyles";
+import {imageStyles, textStyles, viewStyles} from "@/styles/globalStyles";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {bgImg} from "@/assets";
 
@@ -25,32 +25,32 @@ export default function About(): JSX.Element {
     return (
         <ImageBackground
             source={bgImg}
-            style={globalStyles.background}
+            style={imageStyles.background}
             resizeMode="cover"
         >
-            <SafeAreaView  style = {[globalStyles.container, {
+            <SafeAreaView  style = {[viewStyles.container, {
                 paddingTop: Math.max(insets.top + 50,20),
                 paddingBottom: Math.max(insets.bottom - 25,20)}]}>
 
-                <Text style={globalStyles.heading}>יעל צפאל מאמנת רגשית NLP</Text>
-                <View style={globalStyles.infoItem}>
-                    <Text style={globalStyles.text}>מאמנת רגשית להצלחה, הגשמה וצמיחה אישית.
+                <Text style={textStyles.heading}>יעל צפאל מאמנת רגשית NLP</Text>
+                <View style={viewStyles.infoItem}>
+                    <Text style={textStyles.text}>מאמנת רגשית להצלחה, הגשמה וצמיחה אישית.
                         בעלת קליניקה פרטית
                         מעבירה הרצאות וסדנאות
                         מרצה ל NLP
                     </Text>
                 </View>
 
-                <View style={globalStyles.infoItem}>
-                    <Text style={globalStyles.text}> טלפון נייד: </Text>
+                <View style={viewStyles.infoItem}>
+                    <Text style={textStyles.text}> טלפון נייד: </Text>
                     <TouchableOpacity onPress={handlePhonePress}>
-                        <Text style={[globalStyles.link]}>{phoneNumber}</Text>
+                        <Text style={[textStyles.link]}>{phoneNumber}</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={globalStyles.infoItem}>
-                    <Text style={globalStyles.text}> מייל: </Text>
+                <View style={viewStyles.infoItem}>
+                    <Text style={textStyles.text}> מייל: </Text>
                     <TouchableOpacity onPress={handleEmailPress}>
-                        <Text style={[globalStyles.link]}>{email}</Text>
+                        <Text style={[textStyles.link]}>{email}</Text>
                     </TouchableOpacity>
                 </View>
 

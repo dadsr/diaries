@@ -3,7 +3,6 @@ import {StatusBar} from 'expo-status-bar';
 import 'react-native-reanimated';
 import Toast from "react-native-toast-message";
 
-
 export default function RootLayout() {
 
     return (

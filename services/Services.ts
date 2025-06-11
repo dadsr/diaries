@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import { Case } from "@/models/Case";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SerializedCase, SerializedEmotion } from "@/models/Types";
+import { SerializedCase } from "@/models/Types";
 import { Emotion } from "@/models/Emotion";
 
 const isWeb = (Platform.OS === 'web');
@@ -9,7 +9,7 @@ const isWeb = (Platform.OS === 'web');
 export class Services {
 
     async getCases(diary: number): Promise<Case[]> {
-        let storedCases: string | null = null;
+        let storedCases: string | null;
         if (isWeb) {
             storedCases = localStorage.getItem('cases' + diary);
         } else {
@@ -53,7 +53,6 @@ export class Services {
         } else {
             newCase.id = 1;
         }
-        const serializedCase = this.serializeCase(newCase);
         if (isWeb) {
             localStorage.setItem('cases' + diary, JSON.stringify([...cases, newCase].map(c => this.serializeCase(c))));
         } else {

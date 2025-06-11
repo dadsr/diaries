@@ -3,7 +3,7 @@ import {CaseFormValues, ThoughtItem} from "@/models/Types";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Control, Controller} from "react-hook-form";
 import {Checkbox} from "expo-checkbox";
-import {globalStyles} from "@/styles/globalStyles";
+import {viewStyles} from "@/styles/globalStyles";
 
 interface CheckboxesProps {
     diary:number;
@@ -20,7 +20,7 @@ export default function MultiChackBoxes(props: CheckboxesProps): JSX.Element {
 
 
     return (
-        <View style={[globalStyles.container]}>
+        <View style={[viewStyles.container]}>
             <Text style={styles.headerText}>{headerText}</Text>
             <Controller
                 control={control}

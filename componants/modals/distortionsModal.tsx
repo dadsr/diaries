@@ -1,13 +1,14 @@
 import {CaseFormValues, ModalProps} from "@/models/Types";
 import {ImageBackground, Modal, ScrollView, Text, View} from "react-native";
 import {bgImg} from "@/assets";
-import {globalStyles} from "@/styles/globalStyles";
+import {imageStyles, textStyles, viewStyles} from "@/styles/globalStyles";
 import BackButton from "@/componants/buttons/backButton";
 import SaveButton from "@/componants/buttons/saveButton";
 
 import {JSX} from "react";
 import {distortionsThoughtsArray} from "@/models/consts/DistortionsThoughtsConst";
 import MultiChackBoxes from "@/componants/selectors/multiCheckBoxes";
+import {emotionsStyles} from "@/styles/emotionsStyles";
 
 
 export default function DistortionsModal({ diary, control, visible, onClose, onSave  }:ModalProps): JSX.Element  {
@@ -28,16 +29,16 @@ export default function DistortionsModal({ diary, control, visible, onClose, onS
         >
             <ImageBackground
                 source={bgImg}
-                style={globalStyles.background}
+                style={imageStyles.background}
                 resizeMode="cover"
             >
-                <ScrollView contentContainerStyle={globalStyles.scrollView}>
+                <ScrollView contentContainerStyle={viewStyles.scrollView}>
                     <BackButton onPress={onClose} />
                     {/* Heading */}
-                    <Text style={[globalStyles.heading, { paddingRight:10 }]}>
+                    <Text style={[textStyles.heading, { paddingRight:10 }]}>
                         עיוות חשיבה
                     </Text>
-                    <View style={globalStyles.selectorContainer}>
+                    <View style={emotionsStyles.selectorContainer}>
                         <MultiChackBoxes
                             diary={diary}
                             options={distortionsThoughtsArray}
@@ -47,7 +48,7 @@ export default function DistortionsModal({ diary, control, visible, onClose, onS
                         />
                     </View>
                 </ScrollView>
-                <SaveButton onPress={clickSave} />
+                <SaveButton onPress={() =>clickSave} />
             </ImageBackground>
         </Modal>
     );

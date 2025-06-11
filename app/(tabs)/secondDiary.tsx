@@ -1,6 +1,5 @@
 import {JSX} from "react";
-
-import {globalStyles} from "@/styles/globalStyles";
+import {imageStyles, viewStyles} from "@/styles/globalStyles";
 import {ImageBackground, View} from "react-native";
 import {bgImg} from "@/assets";
 import DiaryScreen from "@/componants/diary";
@@ -11,10 +10,10 @@ export default function secondDiary(): JSX.Element {
     return (
         <ImageBackground
             source={bgImg}
-            style={globalStyles.background}
+            style={imageStyles.background}
             resizeMode="cover"
         >
-            <View style={globalStyles.container}>
+            <View style={viewStyles.container}>
                 <DiaryScreen diary={2} />
             </View>
         </ImageBackground>

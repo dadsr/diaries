@@ -1,6 +1,6 @@
 import React, {JSX} from 'react';
 import {TouchableOpacity, View, Image} from 'react-native';
-import {globalStyles} from '@/styles/globalStyles';
+import {imageStyles, viewStyles} from '@/styles/globalStyles';
 import {bImg} from "@/assets";
 
 interface BackProps{
@@ -10,11 +10,11 @@ interface BackProps{
 export default function BackButton({onPress}: BackProps): JSX.Element {
     console.log("BackButton()");
     return (
-        <View style={[globalStyles.backButtonContainer]}>
+        <View style={[viewStyles.backButtonContainer]}>
             <TouchableOpacity onPress={onPress}>
                 <Image
                     source={bImg}
-                    style={globalStyles.buttonIcon}
+                    style={imageStyles.buttonIcon}
                     resizeMode="contain"
                     accessibilityLabel="Back"
                 />

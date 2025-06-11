@@ -1,5 +1,5 @@
 import {Text, TouchableOpacity, View} from "react-native";
-import {globalStyles} from "../../styles/globalStyles";
+import {textStyles, viewStyles} from "../../styles/globalStyles";
 import {JSX} from "react";
 
 interface SaveProps {
@@ -9,9 +9,9 @@ export default function SaveButton({onPress}:SaveProps): JSX.Element {
     console.log("SaveButton()");
 
     return (
-        <View style={globalStyles.buttonContainer}>
-            <TouchableOpacity style={globalStyles.button} onPress={onPress}>
-                <Text style={globalStyles.buttonText}>שמור</Text>
+        <View style={viewStyles.buttonContainer}>
+            <TouchableOpacity style={viewStyles.button} onPress={onPress}>
+                <Text style={textStyles.buttonText}>שמור</Text>
             </TouchableOpacity>
         </View>
     );

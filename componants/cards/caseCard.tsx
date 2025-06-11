@@ -1,9 +1,9 @@
 import React, {JSX, useState} from "react";
-import {ImageBackground, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ImageBackground, Modal, Text, TouchableOpacity, View} from "react-native";
 import {Case} from "@/models/Case";
 import {router} from "expo-router";
 import services from "@/services/Services";
-import {globalStyles} from "@/styles/globalStyles";
+import {imageStyles, textStyles, viewStyles} from "@/styles/globalStyles";
 
 import {bgImg, sImg} from "@/assets";
 import EmotionCard from "@/componants/cards/emotionCards";
@@ -44,7 +44,7 @@ export default function CaseCard({diary, case: item, onDelete}: caseProps): JSX.
                     Toast.show({
                         type: 'success',
                         text1: 'אירוע נמחק',
-                        text2: item.caseName,
+                        text2: item.caseName!,
                         position: 'top',
                         swipeable: true,
                         visibilityTime: 4000,
@@ -56,18 +56,19 @@ export default function CaseCard({diary, case: item, onDelete}: caseProps): JSX.
     };
 
     return (
-        <View  style={globalStyles.card}>
-            <Text style={globalStyles.text} >אירוע: {item.caseName}</Text>
-            <Text style={globalStyles.text} >תאריך: {item.caseDate.toLocaleDateString('he-IL')}</Text>
-            <Text style={globalStyles.text} >מחשבה: {item.thought}</Text>
-            <View style={globalStyles.buttonContainer}>
+        <View  style={viewStyles.card}>
+            <Text style={textStyles.text} >אירוע: {item.caseName}</Text>
+            <Text style={textStyles.text} >תאריך: {item.caseDate.toLocaleDateString('he-IL')}</Text>
+            <Text style={textStyles.text} >מחשבה: {item.thought}</Text>
+
+            <View style={[viewStyles.buttonContainer, { paddingTop:5 }]}>
                 <ImageBackground
                     source={sImg}
-                    style={globalStyles.background}
+                    style={imageStyles.background}
                     resizeMode="cover"
                 >
-                    <TouchableOpacity style={globalStyles.modalOpener} onPress={openFeelingsModal}>
-                        <Text style={globalStyles.text} >תצוגת רגשות</Text>
+                    <TouchableOpacity style={viewStyles.modalOpener} onPress={openFeelingsModal}>
+                        <Text style={textStyles.text} >תצוגת רגשות</Text>
                     </TouchableOpacity>
                 </ImageBackground>
                 <Modal
@@ -77,37 +78,43 @@ export default function CaseCard({diary, case: item, onDelete}: caseProps): JSX.
                     onRequestClose={closeFeelingsModal}
                     // transparent={true}
                 >
-                    <View style={globalStyles.container}>
-                        <View style={globalStyles.heading}>
-                            <Text style={globalStyles.heading}>רגשות:</Text>
+                    <ImageBackground
+                        source={bgImg}
+                        style={imageStyles.background}
+                        resizeMode="cover"
+                    >
+                        <View style={viewStyles.container}>
+                            <View style={textStyles.heading}>
+                                <Text style={textStyles.heading}>רגשות:</Text>
+                            </View>
+                            <View style={viewStyles.modalContent}>
+                                <EmotionCard diary={diary} emotions={item.emotions} />
+                            </View>
+                            <View style={viewStyles.buttonContainer}>
+                                <TouchableOpacity style={viewStyles.button} onPress={closeFeelingsModal}>
+                                    <Text style={textStyles.buttonText}>חזור</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <View style={globalStyles.modalContent}>
-                            <EmotionCard diary={diary} emotions={item.emotions} />
-                        </View>
-                        <View style={globalStyles.buttonContainer}>
-                            <TouchableOpacity style={globalStyles.button} onPress={closeFeelingsModal}>
-                                <Text style={globalStyles.buttonText}>חזור</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+                    </ImageBackground>
                 </Modal>
             </View>
 
             {diary === 1 &&(
                 <>
-                    <Text style={globalStyles.text} >התנהגות: {item.behavior}</Text>
-                    <Text style={globalStyles.text} >סימפטומים: {item.symptoms}</Text>
+                    <Text style={textStyles.text} >התנהגות: {item.behavior}</Text>
+                    <Text style={textStyles.text} >סימפטומים: {item.symptoms}</Text>
                 </>
             )}
             {diary === 2 &&(
-                <View style={globalStyles.buttonContainer}>
+                <View style={[viewStyles.buttonContainer, { paddingTop:15, paddingBottom:15 }]}>
                     <ImageBackground
                         source={sImg}
-                        style={globalStyles.background}
+                        style={imageStyles.background}
                         resizeMode="cover"
                     >
-                        <TouchableOpacity style={globalStyles.modalOpener} onPress={openThoughtsModal}>
-                            <Text style={globalStyles.text} >מחשבות ועיוותים</Text>
+                        <TouchableOpacity style={viewStyles.modalOpener} onPress={openThoughtsModal}>
+                            <Text style={textStyles.text} >מחשבות ועיוותים</Text>
                         </TouchableOpacity>
                     </ImageBackground>
                     <Modal
@@ -119,19 +126,19 @@ export default function CaseCard({diary, case: item, onDelete}: caseProps): JSX.
                     >
                         <ImageBackground
                             source={bgImg}
-                            style={globalStyles.background}
+                            style={imageStyles.background}
                             resizeMode="cover"
                         >
-                            <View style={globalStyles.container}>
-                                <View style={globalStyles.heading}>
-                                    <Text style={globalStyles.heading}>מחשבות ועיוותים</Text>
+                            <View style={viewStyles.container}>
+                                <View style={textStyles.heading}>
+                                    <Text style={textStyles.heading}>מחשבות ועיוותים</Text>
                                 </View>
-                                <View style={globalStyles.modalContent}>
+                                <View style={viewStyles.modalContent}>
                                     <ThoughtsCard diary={diary} distortions={item.distortionIds} counterThoughts={item.counterThoughtIds} />
                                 </View>
-                                <View style={globalStyles.buttonContainer}>
-                                    <TouchableOpacity style={globalStyles.button} onPress={closeThoughtsModal}>
-                                        <Text style={globalStyles.buttonText}>חזור</Text>
+                                <View style={viewStyles.buttonContainer}>
+                                    <TouchableOpacity style={viewStyles.button} onPress={closeThoughtsModal}>
+                                        <Text style={textStyles.buttonText}>חזור</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -140,27 +147,15 @@ export default function CaseCard({diary, case: item, onDelete}: caseProps): JSX.
                 </View>
             )}
 
-            <View style={globalStyles.buttonContainer}>
-                <TouchableOpacity style={globalStyles.button} onPress={editCase}>
-                    <Text style={globalStyles.buttonText} >עריכה</Text>
+            <View style={viewStyles.buttonContainer}>
+                <TouchableOpacity style={viewStyles.button} onPress={editCase}>
+                    <Text style={textStyles.buttonText} >עריכה</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={globalStyles.button} onPress={deleteCase}>
-                    <Text style={globalStyles.buttonText} >הסר</Text>
+                <TouchableOpacity style={viewStyles.button} onPress={deleteCase}>
+                    <Text style={textStyles.buttonText} >הסר</Text>
                 </TouchableOpacity>
             </View>
         </View>
     );
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    case_info: {},
-    case_preview_name_container: {},
-    case_preview_id: {},
-    button_card: {},
-});

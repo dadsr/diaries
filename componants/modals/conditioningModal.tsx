@@ -1,12 +1,13 @@
 import {CaseFormValues, ModalProps} from "@/models/Types";
 import {Button, ImageBackground, Modal, ScrollView, Text, View} from "react-native";
 import {bgImg} from "@/assets";
-import {globalStyles} from "@/styles/globalStyles";
+import {imageStyles, textStyles, viewStyles} from "@/styles/globalStyles";
 import BackButton from "@/componants/buttons/backButton";
 import {JSX} from "react";
 import MultiChackBoxes from "@/componants/selectors/multiCheckBoxes";
 import {counterConditioningThoughtsArray} from "@/models/consts/CounterConditioningThoughtsConst";
 import SaveButton from "@/componants/buttons/saveButton";
+import {emotionsStyles} from "@/styles/emotionsStyles";
 
 
 export default function ConditioningModal({ diary, control, visible, onClose, onSave  }:ModalProps): JSX.Element  {
@@ -27,16 +28,16 @@ export default function ConditioningModal({ diary, control, visible, onClose, on
         >
             <ImageBackground
                 source={bgImg}
-                style={globalStyles.background}
+                style={imageStyles.background}
                 resizeMode="cover"
             >
-                <ScrollView contentContainerStyle={globalStyles.scrollView}>
+                <ScrollView contentContainerStyle={viewStyles.scrollView}>
                     <BackButton onPress={onClose} />
                     {/* Heading */}
-                    <Text style={[globalStyles.heading, { paddingRight:10 }]}>
+                    <Text style={textStyles.heading}>
                         מחשבות חליפיות
                     </Text>
-                    <View style={globalStyles.selectorContainer}>
+                    <View style={emotionsStyles.selectorContainer}>
                         <MultiChackBoxes
                             diary={diary}
                             options={counterConditioningThoughtsArray}
@@ -47,7 +48,7 @@ export default function ConditioningModal({ diary, control, visible, onClose, on
 
                     </View>
                 </ScrollView>
-                <SaveButton onPress={clickSave} />
+                <SaveButton onPress={() =>clickSave} />
             </ImageBackground>
         </Modal>
     );

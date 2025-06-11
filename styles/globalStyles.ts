@@ -1,4 +1,4 @@
-import { StyleSheet, TextStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const colors = {
     primary: '#4630EB',
@@ -25,9 +25,9 @@ export const typography = {
         xxlarge: 30,
     },
     fontWeights: {
-        regular: 'normal',
+        regular: 'normal' as 'normal',
         medium: '500',
-        bold: 'bold',
+        bold: 'bold' as 'bold',
     },
 };
 
@@ -41,19 +41,10 @@ export const spacing = {
     xxl: 40,
 };
 
-export const globalStyles = StyleSheet.create({
+
+export const viewStyles = StyleSheet.create({
     rtlContainer: {
         flexDirection: 'row-reverse',
-    },
-    rtlText: {
-        textAlign: 'right',
-        writingDirection: 'rtl',
-    },
-    background: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-
     },
     container: {
         flex: 1,
@@ -68,6 +59,85 @@ export const globalStyles = StyleSheet.create({
         borderColor: colors.border,
         width: '100%',
         marginBottom: spacing.s,
+    },
+    buttonContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    button: {
+        backgroundColor: colors.primary,
+        margin: spacing.xs,
+        padding: spacing.s,
+        width: '70%',
+        borderWidth: spacing.xxs,
+        borderRadius: 15,
+        borderColor: colors.accent,
+        alignItems: 'center',
+    },
+    backButtonContainer: {
+        width: 60,
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        flex: 1,
+        alignItems: 'stretch',
+        borderWidth: spacing.xs,
+        borderColor: colors.border,
+        backgroundColor: colors.background,
+    },
+    card: {
+        borderWidth: spacing.xs,
+        borderColor: colors.textLight,
+        backgroundColor: colors.whiteOpa,
+        borderRadius: 8,
+        padding: spacing.m,
+        marginVertical: spacing.s,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    infoItem: {
+        flexDirection: 'row-reverse',
+        marginTop: spacing.l,
+        marginBottom: spacing.l,
+        alignItems: 'flex-start',
+    },
+    input: {
+        borderWidth: spacing.xs,
+        borderColor: colors.border,
+        padding: spacing.s,
+        marginVertical: spacing.s,
+        borderRadius: 4,
+    },
+    textarea: {
+        borderWidth: spacing.xs,
+        borderColor: colors.border,
+        padding: spacing.s,
+        marginVertical: spacing.s,
+        borderRadius: 4,
+        height: 100,
+        backgroundColor: colors.white,
+    },
+    selectbackground: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+    },
+    modalOpener: {
+        alignItems: 'center',
+    },
+});
+
+
+export const textStyles = StyleSheet.create({
+    rtlText: {
+        textAlign: 'right',
+        writingDirection: 'rtl',
     },
     error: {
         color: colors.error,
@@ -101,80 +171,11 @@ export const globalStyles = StyleSheet.create({
         padding: spacing.s,
         borderRadius: 4,
     },
-    textarea: {
-        borderWidth: spacing.xs,
-        borderColor: colors.border,
-        padding: spacing.s,
-        marginVertical: spacing.s,
-        borderRadius: 4,
-        height: 100,
-        backgroundColor: colors.white,
-    },
-    input: {
-        borderWidth: spacing.xs,
-        borderColor: colors.border,
-        padding: spacing.s,
-        marginVertical: spacing.s,
-        borderRadius: 4,
-    },
-    buttonContainer: {
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    button: {
-        backgroundColor: colors.primary,
-        margin: spacing.xs,
-        padding: spacing.s,
-        width: '70%',
-        borderWidth: spacing.xxs,
-        borderRadius: 15,
-        borderColor:colors.accent,
-        alignItems: 'center',
-    },
     buttonText: {
         textAlign: 'right',
         writingDirection: 'rtl',
         color: colors.white,
         fontWeight: typography.fontWeights.bold,
-    },
-    backButtonContainer: {
-        width: 60,
-        height: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-
-    },
-    buttonIcon: {
-        width: 60,
-        height: 60,
-    },
-    modalContent: {
-        flex: 1,
-        alignItems: 'stretch',
-        borderWidth: spacing.xs,
-        borderColor: colors.border,
-        backgroundColor: colors.background,
-    },
-    card: {
-        borderWidth: spacing.xs,
-        borderColor: colors.textLight,
-        backgroundColor: colors.whiteOpa,
-        borderRadius: 8,
-        padding: spacing.m,
-        marginVertical: spacing.s,
-        // React Native shadow for iOS:
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 3,
-    },
-    infoItem: {
-        flexDirection: 'row-reverse',
-        marginTop: spacing.l,
-        marginBottom: spacing.l,
-        alignItems: 'flex-start',
     },
     label: {
         fontSize: typography.fontSizes.medium,
@@ -193,15 +194,20 @@ export const globalStyles = StyleSheet.create({
         textDecorationLine: 'underline',
         paddingEnd: spacing.s,
     },
+    modalOpener: {
+        fontSize: typography.fontSizes.xxlarge,
+        fontWeight: typography.fontWeights.bold,
+    },
+});
 
-    selectbackground: {
+export const imageStyles = StyleSheet.create({
+    background: {
         flex: 1,
         width: '100%',
         height: '100%',
     },
-    modalOpener: {
-        alignItems: 'center',
-        fontSize: typography.fontSizes.xxlarge,
-        fontWeight: typography.fontWeights.bold,
+    buttonIcon: {
+        width: 60,
+        height: 60,
     },
 });
