@@ -8,7 +8,7 @@ import {bgImg} from "@/assets";
 import SaveButton from "@/componants/buttons/saveButton";
 import {emotionsStyles} from "@/styles/emotionsStyles";
 
-export default function EmotionsModal({control, visible, onClose, onSave, options, diary  }:ModalProps): JSX.Element  {
+export default function EmotionsModal({control, visible, onClose, onSave, diary}:ModalProps): JSX.Element  {
     console.log("EmotionsModal()");
 
     return (
@@ -38,7 +38,7 @@ export default function EmotionsModal({control, visible, onClose, onSave, option
                     </View>
                 </ScrollView>
 
-                <SaveButton onPress={() =>onSave}/>
+                <SaveButton onPress={onSave} />
             </ImageBackground>
         </Modal>
     );

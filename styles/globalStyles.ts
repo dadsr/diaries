@@ -101,6 +101,33 @@ export const viewStyles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 3,
     },
+    miniCard: {
+        flexDirection: 'row-reverse',
+        borderWidth: spacing.xs,
+        borderColor: '#ecf200',
+        backgroundColor: colors.white,
+        borderRadius: 8,
+        padding: spacing.s,
+        marginVertical: spacing.s,
+        shadowColor: '#000',
+        shadowOffset: { width: 5, height: 10 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    DscCard: {
+        // flexDirection: 'row-reverse',
+        borderWidth: spacing.xs,
+        borderColor: '#ecf200',
+        backgroundColor: colors.white,
+        borderRadius: 8,
+        margin: spacing.m,
+
+        // padding: spacing.s,
+        // marginVertical: spacing.s,
+
+        elevation: 3,
+    },
     infoItem: {
         flexDirection: 'row-reverse',
         marginTop: spacing.l,
@@ -131,6 +158,13 @@ export const viewStyles = StyleSheet.create({
     modalOpener: {
         alignItems: 'center',
     },
+    miniModalOpener: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        inset:0,
+    },
 });
 
 
@@ -153,6 +187,14 @@ export const textStyles = StyleSheet.create({
     },
     text: {
         fontSize: typography.fontSizes.medium,
+        fontWeight: typography.fontWeights.bold,
+        marginBottom: spacing.s,
+        textAlign: 'right',
+        color: colors.text,
+        backgroundColor: colors.whiteOpa,
+    },
+    miniText: {
+        fontSize: typography.fontSizes.small,
         fontWeight: typography.fontWeights.bold,
         marginBottom: spacing.s,
         textAlign: 'right',

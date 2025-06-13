@@ -58,7 +58,7 @@ export interface ModalProps  {
     control: Control<CaseFormValues>;
     visible: boolean;
     onClose: () => void;
-    onSave: (selectedIds: string[]) => void;
+    onSave: () => void;
     options: ThoughtItem[];
 }
 

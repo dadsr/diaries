@@ -13,11 +13,6 @@ import {emotionsStyles} from "@/styles/emotionsStyles";
 export default function ConditioningModal({ diary, control, visible, onClose, onSave  }:ModalProps): JSX.Element  {
     console.log("ConditioningModal() diary ",diary);
 
-    const clickSave = (data: CaseFormValues) => {
-        onSave(data.counterThoughtIds);
-        onClose();
-    };
-
     return (
         <Modal
             visible={visible}
@@ -48,7 +43,7 @@ export default function ConditioningModal({ diary, control, visible, onClose, on
 
                     </View>
                 </ScrollView>
-                <SaveButton onPress={() =>clickSave} />
+                <SaveButton onPress={onSave} />
             </ImageBackground>
         </Modal>
     );

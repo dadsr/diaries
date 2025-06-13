@@ -14,10 +14,7 @@ import {emotionsStyles} from "@/styles/emotionsStyles";
 export default function DistortionsModal({ diary, control, visible, onClose, onSave  }:ModalProps): JSX.Element  {
     console.log("DistortionsModal() diary ",diary);
 
-    const clickSave = (data: CaseFormValues) => {
-        onSave(data.distortionIds);
-        onClose();
-    };
+
 
     return (
         <Modal
@@ -48,7 +45,7 @@ export default function DistortionsModal({ diary, control, visible, onClose, onS
                         />
                     </View>
                 </ScrollView>
-                <SaveButton onPress={() =>clickSave} />
+                <SaveButton onPress={onSave} />
             </ImageBackground>
         </Modal>
     );

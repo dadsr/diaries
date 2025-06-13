@@ -38,7 +38,7 @@ export default function EditCase(): JSX.Element {
     const [isEmotionsModalVisible, setIsEmotionsModalVisible] = useState(false);
     const [isDistortionsModalVisible, setIsDistortionsModalVisible] = useState(false);
     const [isConditioningModalVisible, setIsConditioningModalVisible] = useState(false);
-    const {control, trigger, handleSubmit, setValue, watch, formState: {errors}} = useForm<CaseFormValues>({
+    const {control, trigger, handleSubmit, setValue} = useForm<CaseFormValues>({
         defaultValues: {
             id: 0,
             caseName: '',
@@ -187,12 +187,12 @@ export default function EditCase(): JSX.Element {
         );
         setIsConditioningModalVisible(false);
     };
-
     return (
         <ImageBackground
             source={bgImg}
             style={imageStyles.background}
             resizeMode="cover"
+
         >
             <SafeAreaView  style = {[viewStyles.container, { paddingTop: Math.max(insets.top + 15,20), paddingBottom: Math.max(insets.bottom - 5,20) }]}>
                 <BackButton onPress={onBack}/>

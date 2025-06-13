@@ -15,9 +15,7 @@ export default function TabLayout() {
                     name="firstDiary"
                     options={{
                         title: "יומן 1",
-                        headerStyle: {
-                            backgroundColor: 'rgba(255,0,0,0.74)',
-                        },
+
                         tabBarIcon: ({ focused, color, size }) => {
                             return (
                                 <Ionicons
@@ -33,9 +31,6 @@ export default function TabLayout() {
                     name="secondDiary"
                     options={{
                         title: "יומן 2",
-                        headerStyle: {
-                            backgroundColor: 'rgba(239,244,4,0.76)',
-                        },
                         tabBarIcon: ({ focused, color, size }) => {
                             return (
                                 <Ionicons
@@ -51,9 +46,6 @@ export default function TabLayout() {
                     name="thirdDiary"
                     options={{
                         title: "יומן 3",
-                        headerStyle: {
-                            backgroundColor: 'rgba(88,247,2,0.99)',
-                        },
                         tabBarIcon: ({ focused, color, size }) => {
                             return (
                                 <Ionicons

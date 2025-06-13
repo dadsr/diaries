@@ -1,6 +1,7 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import {textStyles, viewStyles} from "../../styles/globalStyles";
 import {JSX} from "react";
+import {CaseFormValues} from "@/models/Types";
 
 interface SaveProps {
     onPress: () => void;

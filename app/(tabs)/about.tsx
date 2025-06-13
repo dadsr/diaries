@@ -1,8 +1,8 @@
 import {JSX} from "react";
 import {ImageBackground, Linking, SafeAreaView, Text, TouchableOpacity, View} from "react-native";
-import {imageStyles, textStyles, viewStyles} from "@/styles/globalStyles";
+import {colors, imageStyles, spacing, textStyles, typography, viewStyles} from "@/styles/globalStyles";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {bgImg} from "@/assets";
+import {aboutImg} from "@/assets";
 
 export default function About(): JSX.Element {
     console.log("About()");
@@ -24,7 +24,7 @@ export default function About(): JSX.Element {
 
     return (
         <ImageBackground
-            source={bgImg}
+            source={aboutImg}
             style={imageStyles.background}
             resizeMode="cover"
         >
@@ -32,8 +32,15 @@ export default function About(): JSX.Element {
                 paddingTop: Math.max(insets.top + 50,20),
                 paddingBottom: Math.max(insets.bottom - 25,20)}]}>
 
-                <Text style={textStyles.heading}>יעל צפאל מאמנת רגשית NLP</Text>
-                <View style={viewStyles.infoItem}>
+                <Text style={[
+                    {
+                        textAlign: 'center',
+                        writingDirection: 'rtl',
+                        fontSize: typography.fontSizes.xxlarge,
+                        fontWeight: typography.fontWeights.bold,
+                        color: colors.primary,
+                        marginBottom: spacing.m,}]}>יעל צ'אפל מאמנת רגשית NLP</Text>
+                <View style={viewStyles.card}>
                     <Text style={textStyles.text}>מאמנת רגשית להצלחה, הגשמה וצמיחה אישית.
                         בעלת קליניקה פרטית
                         מעבירה הרצאות וסדנאות
@@ -41,13 +48,13 @@ export default function About(): JSX.Element {
                     </Text>
                 </View>
 
-                <View style={viewStyles.infoItem}>
+                <View style={viewStyles.card}>
                     <Text style={textStyles.text}> טלפון נייד: </Text>
                     <TouchableOpacity onPress={handlePhonePress}>
                         <Text style={[textStyles.link]}>{phoneNumber}</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={viewStyles.infoItem}>
+                <View style={viewStyles.card}>
                     <Text style={textStyles.text}> מייל: </Text>
                     <TouchableOpacity onPress={handleEmailPress}>
                         <Text style={[textStyles.link]}>{email}</Text>

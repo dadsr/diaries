@@ -133,7 +133,7 @@ export default function CaseCard({diary, case: item, onDelete}: caseProps): JSX.
                                 <View style={textStyles.heading}>
                                     <Text style={textStyles.heading}>מחשבות ועיוותים</Text>
                                 </View>
-                                <View style={viewStyles.modalContent}>
+                                <View style={[viewStyles.modalContent]}>
                                     <ThoughtsCard diary={diary} distortions={item.distortionIds} counterThoughts={item.counterThoughtIds} />
                                 </View>
                                 <View style={viewStyles.buttonContainer}>
