@@ -7,7 +7,8 @@ import {Control} from "react-hook-form";
 
 export interface SerializedEmotion {
     _emotion: EmotionKey | null;
-    _intensity: number;
+    _beforeIntensity: number;
+    _afterIntensity: number;
 }
 
 export interface SerializedDistortionThought {
@@ -44,7 +45,8 @@ export type CaseFormValues = {
 export interface EmotionOption {
     value: EmotionKey;
     label: string;
-    intensity: number;
+    beforeIntensity: number;
+    afterIntensity: number;
 }
 
 export interface ThoughtItem {

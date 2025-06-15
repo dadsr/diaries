@@ -56,13 +56,13 @@ export default function EmotionCard(props: EmotionsProps) {
                                 minimumValue={0}
                                 maximumValue={100}
                                 step={10}
-                                value={emotion.getIntensity}
+                                value={emotion.getBeforeIntensity}
                                 minimumTrackTintColor="#4630EB"
                                 maximumTrackTintColor="#4630EB"
                                 thumbTintColor="#4630EB"
                                 disabled={true}
                             />
-                            <Text style={emotionsStyles.intensityValue}>{emotion.getIntensity}%</Text>
+                            <Text style={emotionsStyles.intensityValue}>{emotion.getBeforeIntensity}%</Text>
                         </View>
                     </View>
                     ))

@@ -22,8 +22,10 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
     const emotionOptions: EmotionOption[] = Object.entries(EmotionsConst).map(([key, emotion]) => ({
         value: key as EmotionKey,
         label: emotion.displayName,
-        intensity: 50,
+        beforeIntensity: 50,
+        afterIntensity: 50,
     }));
+
     // Function to render slider markings
     const renderSliderMarkings = () => {
         const markings = [];
@@ -53,7 +55,8 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
                             .map((emotion: Emotion) => ({
                                 value: emotion.getEmotion as EmotionKey,
                                 label: EmotionsConst[emotion.getEmotion as EmotionKey].displayName,
-                                intensity: emotion.getIntensity,
+                                beforeIntensity: emotion.getBeforeIntensity,
+                                afterIntensity: emotion.getAfterIntensity,
                             }))
                         : [];
 
@@ -64,7 +67,7 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
                         const emotions = selectedItems.map((item) => {
                             const key = item as EmotionKey;
                             const existing = selectValue.find(option => option.value === key);
-                            return new Emotion(key, existing ? existing.intensity : 50);
+                            return new Emotion(key, existing ? existing.beforeIntensity : 50, existing ? existing.afterIntensity : 50);
                         });
                         field.onChange(emotions);
                     };
@@ -93,7 +96,9 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
 
                                 </View>
                             )}
-                            {/* Intensity sliders for selected emotions */}
+                            {/* before Intensity sliders for selected emotions */}
+                            {diary === 3 && ( <Text style={textStyles.text}>עוצמת הרגש לפני:</Text> )}
+
                             {selectValue.map((option: EmotionOption) => (
                                 <View key={`slider-${option.value}`} style={emotionsStyles.sliderContainer}>
                                     <Text style={emotionsStyles.emotionLabel}>{option.label}</Text>
@@ -106,7 +111,7 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
                                             minimumValue={0}
                                             maximumValue={100}
                                             step={10}
-                                            value={option.intensity}
+                                            value={option.beforeIntensity}
                                             onValueChange={(value: number) => {
                                                 const updated = field.value.map((emotion: Emotion) =>
                                                     emotion.getEmotion === option.value
@@ -119,9 +124,45 @@ export function EmotionsMultiSelector({ name, diary, control }: SelectorProps): 
                                             maximumTrackTintColor="#CCCCCC"
                                         />
                                     </View>
-                                    <Text style={emotionsStyles.intensityValue}>{option.intensity}%</Text>
+                                    <Text style={emotionsStyles.intensityValue}>{option.beforeIntensity}%</Text>
                                 </View>
-                            ))}
+                            ))};
+                            {diary === 3 && (
+                                <Text style={textStyles.text}>עוצמת הרגש אחרי:</Text>
+                            )}
+                            {diary === 3 && (
+                                <>
+                                    {selectValue.map((option: EmotionOption) => (
+                                        <View key={`slider-${option.value}`} style={emotionsStyles.sliderContainer}>
+                                            <Text style={emotionsStyles.emotionLabel}>{option.label}</Text>
+                                            <View style={emotionsStyles.sliderWithMarkings}>
+                                                <View style={emotionsStyles.markingsContainer}>
+                                                    {renderSliderMarkings()}
+                                                </View>
+                                                <Slider
+                                                    style={emotionsStyles.slider}
+                                                    minimumValue={0}
+                                                    maximumValue={100}
+                                                    step={10}
+                                                    value={option.afterIntensity}
+                                                    onValueChange={(value: number) => {
+                                                        const updated = field.value.map((emotion: Emotion) =>
+                                                            emotion.getEmotion === option.value
+                                                                ? new Emotion(option.value, value)
+                                                                : emotion
+                                                        );
+                                                        field.onChange(updated);
+                                                    }}
+                                                    minimumTrackTintColor="#007AFF"
+                                                    maximumTrackTintColor="#CCCCCC"
+                                                />
+                                            </View>
+                                            <Text style={emotionsStyles.intensityValue}>{option.afterIntensity}%</Text>
+                                        </View>
+                                    ))
+                                    }
+                                </>
+                            )}
                         </View>
                     );
                 }}

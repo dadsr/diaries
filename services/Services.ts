@@ -77,7 +77,7 @@ export class Services {
         caseInstance.caseName = serialized.caseName;
         caseInstance.thought = serialized.thought;
         caseInstance.emotions = serialized.emotions.map(e =>
-            new Emotion(e._emotion, e._intensity)
+            new Emotion(e._emotion, e._beforeIntensity)
         );
         caseInstance.behavior = serialized.behavior;
         caseInstance.symptoms = serialized.symptoms;
@@ -92,7 +92,7 @@ export class Services {
             caseDate: caseInstance.caseDate.toISOString(),
             emotions: caseInstance.emotions.map(e => ({
                 _emotion: e.getEmotion,
-                _intensity: e.getIntensity,
+                _beforeIntensity: e.getBeforeIntensity,
             })),
             distortionIds: caseInstance.distortionIds || [],
             counterThoughtIds: caseInstance.counterThoughtIds || [],

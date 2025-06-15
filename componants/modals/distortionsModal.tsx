@@ -1,4 +1,4 @@
-import {CaseFormValues, ModalProps} from "@/models/Types";
+import {ModalProps} from "@/models/Types";
 import {ImageBackground, Modal, ScrollView, Text, View} from "react-native";
 import {bgImg} from "@/assets";
 import {imageStyles, textStyles, viewStyles} from "@/styles/globalStyles";

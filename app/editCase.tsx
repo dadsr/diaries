@@ -66,7 +66,7 @@ export default function EditCase(): JSX.Element {
                     setValue('thought', myCase.thought!);
                     setValue('behavior', myCase.behavior!);
                     setValue('symptoms', myCase.symptoms!);
-                    setValue('emotions', myCase.emotions.map((emotion:Emotion) => new Emotion(emotion.getEmotion, emotion.getIntensity)));
+                    setValue('emotions', myCase.emotions.map((emotion:Emotion) => new Emotion(emotion.getEmotion, emotion.getBeforeIntensity)));
                     setValue('behavior', myCase.behavior!);
                     setValue('symptoms', myCase.symptoms!);
                     setValue('distortionIds', myCase.distortionIds);
@@ -90,7 +90,7 @@ export default function EditCase(): JSX.Element {
         caseInstance.thought = data.thought;
         caseInstance.behavior = data.behavior;
         caseInstance.symptoms = data.symptoms;
-        caseInstance.emotions = data.emotions.map((emotion:Emotion) => new Emotion(emotion.getEmotion, emotion.getIntensity));
+        caseInstance.emotions = data.emotions.map((emotion:Emotion) => new Emotion(emotion.getEmotion, emotion.getBeforeIntensity));
         caseInstance.distortionIds = data.distortionIds;
         caseInstance.counterThoughtIds = data.counterThoughtIds;
 
@@ -268,23 +268,26 @@ export default function EditCase(): JSX.Element {
                     />
 
                     {/*Thought*/}
-                    <Text style={textStyles.text} >מחשבה:</Text>
-                    <Controller
-                        name="thought"
-                        control={control}
-                        render={({field: {onChange, onBlur, value}}) => (
-                            <TextInput
-                                style={viewStyles.textarea}
-                                placeholder="מחשבה"
-                                multiline={true}
-                                numberOfLines={4}
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                value={value}
+                    {diary !== 3 && (
+                        <>
+                            <Text style={textStyles.text} >מחשבה:</Text>
+                            <Controller
+                                name="thought"
+                                control={control}
+                                render={({field: {onChange, onBlur, value}}) => (
+                                    <TextInput
+                                        style={viewStyles.textarea}
+                                        placeholder="מחשבה"
+                                        multiline={true}
+                                        numberOfLines={4}
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                    />
+                                )}
                             />
-                        )}
-                    />
-
+                        </>
+                    )}
                     {/* Emotions */}
                     <>
                         <View style={[viewStyles.buttonContainer, { paddingTop:30 }]}>
@@ -357,24 +360,23 @@ export default function EditCase(): JSX.Element {
                     )}
 
                     {/* Distortions Thoughts*/}
-                    {diary === 2 &&(
+                    {diary !== 1 &&(
                         <>
-                            {diary === 2 && (
-                                <View style={[viewStyles.buttonContainer, { paddingTop:30 }]}>
-                                    <ImageBackground
-                                        source={sImg}
-                                        style={viewStyles.selectbackground}
-                                        resizeMode="cover"
+                            <View style={[viewStyles.buttonContainer, { paddingTop:30 }]}>
+                                <ImageBackground
+                                    source={sImg}
+                                    style={viewStyles.selectbackground}
+                                    resizeMode="cover"
+                                >
+                                    <TouchableOpacity
+                                        style={viewStyles.modalOpener}
+                                        onPress={()=> handleOpenModal(setIsDistortionsModalVisible,trigger)}
                                     >
-                                        <TouchableOpacity
-                                            style={viewStyles.modalOpener}
-                                            onPress={()=> handleOpenModal(setIsDistortionsModalVisible,trigger)}
-                                        >
-                                            <Text style={textStyles.text}>עיוות חשיבה</Text>
-                                        </TouchableOpacity>
-                                    </ImageBackground>
-                                </View>
-                            )}
+                                        <Text style={textStyles.text}>עיוות חשיבה</Text>
+                                    </TouchableOpacity>
+                                </ImageBackground>
+                            </View>
+
 
                             <DistortionsModal
                                 control={control}
@@ -388,24 +390,23 @@ export default function EditCase(): JSX.Element {
                     )}
 
                     {/* Counter Conditioning Thoughts*/}
-                    {diary === 2 &&(
+                    {diary !== 1 &&(
                         <>
-                            {diary === 2 && (
-                                <View style={[viewStyles.buttonContainer, { paddingTop:30 }]}>
-                                    <ImageBackground
-                                        source={sImg}
-                                        style={viewStyles.selectbackground}
-                                        resizeMode="cover"
+                            <View style={[viewStyles.buttonContainer, { paddingTop:30 }]}>
+                                <ImageBackground
+                                    source={sImg}
+                                    style={viewStyles.selectbackground}
+                                    resizeMode="cover"
+                                >
+                                    <TouchableOpacity
+                                        style={viewStyles.modalOpener}
+                                        onPress={()=> handleOpenModal(setIsConditioningModalVisible,trigger)}
                                     >
-                                        <TouchableOpacity
-                                            style={viewStyles.modalOpener}
-                                            onPress={()=> handleOpenModal(setIsConditioningModalVisible,trigger)}
-                                        >
-                                            <Text style={textStyles.text}>מחשבות חליפיות</Text>
-                                        </TouchableOpacity>
-                                    </ImageBackground>
-                                </View>
-                            )}
+                                        <Text style={textStyles.text}>מחשבות חליפיות</Text>
+                                    </TouchableOpacity>
+                                </ImageBackground>
+                            </View>
+                            )
 
                             <ConditioningModal
                                 control={control}

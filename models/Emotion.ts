@@ -2,17 +2,21 @@ import {EmotionKey, EmotionsConst} from "@/models/consts/EmotionsConst";
 
 export class Emotion {
     private _emotion: EmotionKey | null;
-    private _intensity: number;
+    private _beforeIntensity: number;
+    private _afterIntensity: number;
 
-    constructor(emotionType: EmotionKey | null = null, intensity: number = 0) {
+
+    constructor(emotionType: EmotionKey | null = null, beforeIntensity: number = 0, afterIntensity: number = 0) {
         this._emotion = emotionType;
-        this._intensity = intensity;
+        this._beforeIntensity = beforeIntensity;
+        this._afterIntensity = afterIntensity;
     }
 
     toJSON() {
         return {
             _emotion: this._emotion,
-            _intensity: this._intensity
+            _intensity: this._beforeIntensity,
+            _afterIntensity: this._afterIntensity,
         };
     }
 
@@ -23,13 +27,21 @@ export class Emotion {
     set setEmotion(emotionType: EmotionKey | null) {
         this._emotion = emotionType;
     }
-    get getIntensity(): number {
-        return this._intensity;
+    get getBeforeIntensity(): number {
+        return this._beforeIntensity;
+    }
+    get getAfterIntensity(): number {
+        return this._afterIntensity;
     }
 
-    set setIntensity(intensity: number) {
-        this._intensity = intensity;
+    set setBeforeIntensity(beforeIntensity: number) {
+        this._beforeIntensity = beforeIntensity;
     }
+
+    set setAfterIntensity(afterIntensity: number) {
+        this._afterIntensity = afterIntensity;
+    }
+
 
     get displayName(): string {
         if (!this._emotion) return 'Unknown Emotion';
