@@ -1,5 +1,5 @@
-import {ModalProps} from "@/models/Types";
-import {ImageBackground, Modal, ScrollView, Text, View} from "react-native";
+import {CaseFormValues, ModalProps} from "@/models/Types";
+import {Button, ImageBackground, Modal, ScrollView, Text, View} from "react-native";
 import {bgImg} from "@/assets";
 import {imageStyles, textStyles, viewStyles} from "@/styles/globalStyles";
 import BackButton from "@/componants/buttons/backButton";

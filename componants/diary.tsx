@@ -34,6 +34,7 @@ export default function DiaryScreen({ diary }: DiaryProps): JSX.Element {
     const addNewCase = () => {
         console.log('addNewCase()');
         router.push({ pathname: '/editCase', params: { diary:diary, id: 0 } });
+
     };
 
 
@@ -59,6 +60,7 @@ export default function DiaryScreen({ diary }: DiaryProps): JSX.Element {
                         <Text style={textStyles.buttonText} >הוספת אירוע</Text>
                     </TouchableOpacity>
                 </View>
+
             </SafeAreaView >
     );
 

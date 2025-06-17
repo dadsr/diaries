@@ -134,11 +134,7 @@ export default function CaseCard({diary, case: item, onDelete}: caseProps): JSX.
                                     <Text style={textStyles.heading}>מחשבות ועיוותים</Text>
                                 </View>
                                 <View style={[viewStyles.modalContent]}>
-                                    <ThoughtsCard
-                                        diary={diary}
-                                        distortions={item.distortionThoughts}
-                                        counterThoughts={item.counterThoughts}
-                                    />
+                                    <ThoughtsCard diary={diary} distortions={item.distortionIds} counterThoughts={item.counterThoughtIds} />
                                 </View>
                                 <View style={viewStyles.buttonContainer}>
                                     <TouchableOpacity style={viewStyles.button} onPress={closeThoughtsModal}>

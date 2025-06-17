@@ -1,6 +1,4 @@
 import {Emotion} from "@/models/Emotion";
-import {DistortionThought} from "@/models/DistortionThought";
-import {CounterThought} from "@/models/CounterThought";
 
 
 export class Case {
@@ -11,8 +9,8 @@ export class Case {
     emotions: Emotion[];
     behavior: string | null;
     symptoms: string | null;
-    distortionThoughts: DistortionThought[];
-    counterThoughts: CounterThought[];
+    distortionIds: string[];
+    counterThoughtIds: string[];
 
 
     constructor() {
@@ -23,7 +21,7 @@ export class Case {
         this.emotions = [];
         this.behavior = null;
         this.symptoms = null;
-        this.distortionThoughts = [];
-        this.counterThoughts = [];
+        this.distortionIds = [];
+        this.counterThoughtIds = [];
     }
 }

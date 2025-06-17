@@ -46,7 +46,6 @@ export default function EmotionCard(props: EmotionsProps) {
                     <View key={index} style={emotionsStyles.sliderContainer}>
                         <Text style={emotionsStyles.emotionLabel}>{emotion.displayName}</Text>
 
-                        //BeforeIntensity
                         <View style={emotionsStyles.sliderWithMarkings} >
                             <View style={emotionsStyles.markingsContainer}>
                                 {renderSliderMarkings()}
@@ -57,33 +56,13 @@ export default function EmotionCard(props: EmotionsProps) {
                                 minimumValue={0}
                                 maximumValue={100}
                                 step={10}
-                                value={emotion.getBeforeIntensity}
+                                value={emotion.getIntensity}
                                 minimumTrackTintColor="#4630EB"
                                 maximumTrackTintColor="#4630EB"
                                 thumbTintColor="#4630EB"
                                 disabled={true}
                             />
-                            <Text style={emotionsStyles.intensityValue}>{emotion.getBeforeIntensity}%</Text>
-                        </View>
-
-                        //AfterIntensity
-                        <View style={emotionsStyles.sliderWithMarkings} >
-                            <View style={emotionsStyles.markingsContainer}>
-                                {renderSliderMarkings()}
-                            </View>
-
-                            <Slider
-                                style={emotionsStyles.slider}
-                                minimumValue={0}
-                                maximumValue={100}
-                                step={10}
-                                value={emotion.getAfterIntensity}
-                                minimumTrackTintColor="#4630EB"
-                                maximumTrackTintColor="#4630EB"
-                                thumbTintColor="#4630EB"
-                                disabled={true}
-                            />
-                            <Text style={emotionsStyles.intensityValue}>{emotion.getAfterIntensity}%</Text>
+                            <Text style={emotionsStyles.intensityValue}>{emotion.getIntensity}%</Text>
                         </View>
                     </View>
                     ))
