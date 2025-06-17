@@ -1,7 +1,5 @@
 import {EmotionKey} from "@/models/consts/EmotionsConst";
 import {Emotion} from "@/models/Emotion";
-import {DistortionsThoughtKey} from "@/models/consts/DistortionsThoughtsConst";
-import {CounterThoughtKey} from "@/models/consts/CounterConditioningThoughtsConst";
 import {Control} from "react-hook-form";
 
 
@@ -12,10 +10,14 @@ export interface SerializedEmotion {
 }
 
 export interface SerializedDistortionThought {
-    _distortion: DistortionsThoughtKey | null;
+    _distortionThoughtId: string;
+    _beforeIntensity: number;
+    _afterIntensity: number;
 }
 export interface SerializedCounterConditioningThought {
-    _counterThought: CounterThoughtKey | null;
+    _counterThoughtId: string;
+    _beforeIntensity: number;
+    _afterIntensity: number;
 }
 
 export interface SerializedCase {
@@ -26,8 +28,8 @@ export interface SerializedCase {
     emotions: SerializedEmotion[];
     behavior: string | null;
     symptoms: string | null;
-    distortionIds: string[];
-    counterThoughtIds: string[];
+    distortionThoughts: SerializedDistortionThought[];
+    counterThoughts: SerializedCounterConditioningThought[];
 }
 
 export type CaseFormValues = {
@@ -38,8 +40,8 @@ export type CaseFormValues = {
     emotions: Emotion[];
     behavior: string;
     symptoms: string;
-    distortionIds: string[];
-    counterThoughtIds: string[];
+    distortionThoughts: string[];
+    counterThoughts: string[];
 };
 
 export interface EmotionOption {
