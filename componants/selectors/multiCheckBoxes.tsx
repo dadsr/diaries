@@ -53,6 +53,7 @@ export default function MultiChackBoxes(props: CheckboxesProps): JSX.Element {
                                     <View style={styles.cell}>
                                         <Text style={styles.displayName}>{option.displayName}</Text>
                                         <Text style={styles.description}>{option.description}</Text>
+
                                     </View>
                                 </TouchableOpacity>
                             ))}
