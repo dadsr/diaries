@@ -6,16 +6,20 @@ import { bgImg } from "@/assets";
 import {distortionsThoughtsArray} from "@/models/consts/DistortionsThoughtsConst";
 import {counterConditioningThoughtsArray} from "@/models/consts/CounterConditioningThoughtsConst";
 import ThoughtMiniCard from "@/componants/cards/thoughtMiniCard";
+import {DistortionThought} from "@/models/DistortionThought";
+import {CounterThought} from "@/models/CounterThought";
 
 interface ThoughtsProps {
     diary: number;
-    distortions: string[]; // array of IDs
-    counterThoughts: string[]; // array of IDs
+    distortions: DistortionThought[];
+    counterThoughts: CounterThought[];
 }
 
 export default function ThoughtsCard({ diary, distortions, counterThoughts }: ThoughtsProps): JSX.Element {
-    const selectedDistortions = distortionsThoughtsArray.filter(d => distortions.includes(d.id));
-    const selectedCounterThoughts = counterConditioningThoughtsArray.filter(c => counterThoughts.includes(c.id));
+    const distortionIds = distortions.map(d => d.distortionThoughtId);
+    const selectedDistortions = distortionsThoughtsArray.filter(d => distortionIds.includes(d.id));
+    const counterThoughtsIds = counterThoughts.map(c => c.distortionThoughtId);
+    const selectedCounterThoughts = counterConditioningThoughtsArray.filter(c => counterThoughtsIds.includes(c.id));
 
     return (
         <DefaultScrollView style = {[viewStyles.scrollView]}>

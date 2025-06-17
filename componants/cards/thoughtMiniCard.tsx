@@ -2,7 +2,6 @@ import {Modal, Text, TouchableOpacity, View} from "react-native";
 
 import {spacing, textStyles, viewStyles} from "@/styles/globalStyles";
 import React, {JSX, useState} from "react";
-import Toast from "react-native-toast-message";
 import BackButton from "@/componants/buttons/backButton";
 
 interface MiniThoughtProps {

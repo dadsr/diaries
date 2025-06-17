@@ -3,6 +3,8 @@ import { Case } from "@/models/Case";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SerializedCase } from "@/models/Types";
 import { Emotion } from "@/models/Emotion";
+import {DistortionThought} from "@/models/DistortionThought";
+import {CounterThought} from "@/models/CounterThought";
 
 const isWeb = (Platform.OS === 'web');
 
@@ -81,8 +83,12 @@ export class Services {
         );
         caseInstance.behavior = serialized.behavior;
         caseInstance.symptoms = serialized.symptoms;
-        caseInstance.distortionIds = serialized.distortionIds || [];
-        caseInstance.counterThoughtIds = serialized.counterThoughtIds || [];
+        caseInstance.distortionThoughts = serialized.distortionThoughts.map(d =>
+        new DistortionThought(d._distortionThoughtId, d._beforeIntensity, d._afterIntensity)
+        );
+        caseInstance.counterThoughts = serialized.counterThoughts.map(c =>
+        new CounterThought(c._counterThoughtId, c._beforeIntensity, c._afterIntensity)
+        );
         return caseInstance;
     }
 
@@ -91,11 +97,23 @@ export class Services {
             ...caseInstance,
             caseDate: caseInstance.caseDate.toISOString(),
             emotions: caseInstance.emotions.map(e => ({
-                _emotion: e.getEmotion,
-                _beforeIntensity: e.getBeforeIntensity,
-            })),
-            distortionIds: caseInstance.distortionIds || [],
-            counterThoughtIds: caseInstance.counterThoughtIds || [],
+                    _emotion: e.getEmotion,
+                    _beforeIntensity: e.getBeforeIntensity,
+                    _afterIntensity: e.getAfterIntensity,
+                })
+            ),
+            distortionThoughts: caseInstance.distortionThoughts.map(distortion =>({
+                    _distortionThoughtId: distortion.distortionThoughtId,
+                    _beforeIntensity: distortion.beforeIntensity,
+                    _afterIntensity: distortion.afterIntensity,
+                })
+            ),
+            counterThoughts: caseInstance.counterThoughts.map(counter =>({
+                    _counterThoughtId: counter.distortionThoughtId,
+                    _beforeIntensity: counter.beforeIntensity,
+                    _afterIntensity: counter.afterIntensity,
+                })
+            ),
         };
     }
 }
